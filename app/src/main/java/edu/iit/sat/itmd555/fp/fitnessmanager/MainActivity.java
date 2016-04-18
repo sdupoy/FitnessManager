@@ -1,4 +1,4 @@
-package com.example.mypackage.fitness;
+package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 
 import android.os.Bundle;
