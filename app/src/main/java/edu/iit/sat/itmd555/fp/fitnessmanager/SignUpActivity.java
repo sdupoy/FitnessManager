@@ -2,7 +2,6 @@ package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 
 public class SignUpActivity extends Activity {
 
