@@ -1,43 +1,63 @@
 package edu.iit.sat.itmd555.fp.fitnessmanager;
 
-import java.util.ArrayList;
-
 /**
- * Created by Simon on 4/18/2016.
+ * Created by Simon on 4/19/2016.
  */
 public class ActivityWorkout {
-    String id;
-    ArrayList<Workout> workouts;
+    private int id;
+    private int idActivity;
+    private int nbOfRep;
+    private String typeOfRep;
 
     public ActivityWorkout() {
     }
 
-    public ActivityWorkout(String id, ArrayList<Workout> workouts) {
+    public ActivityWorkout(int id, int idActivity, int nbOfRep, String typeOfRep) {
         this.id = id;
-        this.workouts = workouts;
+        this.idActivity = idActivity;
+        this.nbOfRep = nbOfRep;
+        this.typeOfRep = typeOfRep;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public ArrayList<Workout> getWorkouts() {
-        return workouts;
+    public int getIdActivity() {
+        return idActivity;
     }
 
-    public void setWorkouts(ArrayList<Workout> workouts) {
-        this.workouts = workouts;
+    public void setIdActivity(int idActivity) {
+        this.idActivity = idActivity;
+    }
+
+    public int getNbOfRep() {
+        return nbOfRep;
+    }
+
+    public void setNbOfRep(int nbOfRep) {
+        this.nbOfRep = nbOfRep;
+    }
+
+    public String getTypeOfRep() {
+        return typeOfRep;
+    }
+
+    public void setTypeOfRep(String typeOfRep) {
+        this.typeOfRep = typeOfRep;
     }
 
     @Override
     public String toString() {
         return "ActivityWorkout{" +
-                "id='" + id + '\'' +
-                ", workouts=" + workouts +
+                "id=" + id +
+                ", idActivity =" + idActivity +
+                ", nbOfRep=" + nbOfRep +
+                ", typeOfRep='" + typeOfRep + '\'' +
                 '}';
     }
 }

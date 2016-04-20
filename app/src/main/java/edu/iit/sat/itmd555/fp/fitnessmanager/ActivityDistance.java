@@ -1,41 +1,47 @@
 package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 /**
- * Created by Simon on 4/18/2016.
+ * Created by Simon on 4/19/2016.
  */
 public class ActivityDistance {
-    String id;
-    String distance;
+    private int id;
+    private int idActivity;
+    private String distanceMiles;
+    private String distanceKms;
 
     public ActivityDistance() {
     }
 
-    public ActivityDistance(String id, String distance) {
-        this.id = id;
-        this.distance = distance;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getDistanceMiles() {
+        return distanceMiles;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setDistanceMiles(String distanceMiles) {
+        this.distanceMiles = distanceMiles;
+    }
+
+    public String getDistanceKms() {
+        return distanceKms;
+    }
+
+    public void setDistanceKms(String distanceKms) {
+        this.distanceKms = distanceKms;
     }
 
     @Override
     public String toString() {
         return "ActivityDistance{" +
-                "id='" + id + '\'' +
-                ", distance='" + distance + '\'' +
+                "id=" + id +
+                ", distanceMiles='" + distanceMiles + '\'' +
+                ", distanceKms='" + distanceKms + '\'' +
                 '}';
     }
 }

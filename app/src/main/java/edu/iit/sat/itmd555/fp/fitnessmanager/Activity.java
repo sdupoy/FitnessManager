@@ -5,37 +5,22 @@ package edu.iit.sat.itmd555.fp.fitnessmanager;
  */
 public class Activity {
     private int id;
+    private int idUser;
     private String type;
     private String duration;
     private String date;
     private String feedback;
-    private String idDetailedActivity;
 
-    public Activity(){}
-
-    public Activity(String type, String duration, String date, String idDetailedActivity) {
-        super();
-        this.type = type;
-        this.duration = duration;
-        this.date = date;
-        this.idDetailedActivity = idDetailedActivity;
+    public Activity() {
     }
 
-    public Activity(String type, String duration, String date, String feedback, String idDetailedActivity) {
-        super();
-        this.type = type;
+    public Activity(int id, int idUser, String duration, String type, String date, String feedback) {
+        this.id = id;
+        this.idUser = idUser;
         this.duration = duration;
+        this.type = type;
         this.date = date;
         this.feedback = feedback;
-        this.idDetailedActivity = idDetailedActivity;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getId() {
@@ -44,6 +29,22 @@ public class Activity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDuration() {
@@ -70,23 +71,16 @@ public class Activity {
         this.feedback = feedback;
     }
 
-    public String getIdDetailedActivity() {
-        return idDetailedActivity;
-    }
-
-    public void setIdDetailedActivity(String idDetailedActivity) {
-        this.idDetailedActivity = idDetailedActivity;
-    }
 
     @Override
     public String toString() {
         return "Activity{" +
                 "id=" + id +
+                ", idUser=" + idUser +
                 ", type='" + type + '\'' +
                 ", duration='" + duration + '\'' +
                 ", date='" + date + '\'' +
                 ", feedback='" + feedback + '\'' +
-                ", idDetailedActivity='" + idDetailedActivity + '\'' +
                 '}';
     }
 }
