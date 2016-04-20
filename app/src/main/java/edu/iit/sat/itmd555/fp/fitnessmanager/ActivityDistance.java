@@ -20,6 +20,14 @@ public class ActivityDistance {
         this.id = id;
     }
 
+    public int getIdActivity() {
+        return idActivity;
+    }
+
+    public void setIdActivity(int idActivity) {
+        this.idActivity = idActivity;
+    }
+
     public String getDistanceMiles() {
         return distanceMiles;
     }
@@ -40,6 +48,7 @@ public class ActivityDistance {
     public String toString() {
         return "ActivityDistance{" +
                 "id=" + id +
+                ", idActivity=" + idActivity +
                 ", distanceMiles='" + distanceMiles + '\'' +
                 ", distanceKms='" + distanceKms + '\'' +
                 '}';

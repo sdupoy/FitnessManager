@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
  * Created by Simon on 4/19/2016.
  */
@@ -53,7 +54,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static final String KEY_FEEDBACK = "feedback";
     private static final String KEY_TYPE = "type";
 
-    // Distance activity Table Columns names
+    // DistanceActivity Table Columns names
     private static final String KEY_ID_DISTANCE_ACTIVITY = "id";
     private static final String KEY_DISTANCE_KM = "distanceKms";
     private static final String KEY_DISTANCE_MILES = "distanceMiles";
@@ -68,19 +69,20 @@ public class SqlHelper extends SQLiteOpenHelper {
     public SqlHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create users table
         String CREATE_USERS_TABLE = "CREATE TABLE users ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "password TEXT NOT NULL, " +
-                "firstname TEXT NOT NULL, "+
-                "lastname TEXT NOT NULL, "+
-                "age INTEGER NOT NULL, "+
-                "height TEXT NOT NULL, "+
-                "weight TEXT NOT NULL, "+
-                "email TEXT NOT NULL, "+
-                "gender TEXT NOT NULL, "+
+                "firstname TEXT NOT NULL, " +
+                "lastname TEXT NOT NULL, " +
+                "age INTEGER NOT NULL, " +
+                "height TEXT NOT NULL, " +
+                "weight TEXT NOT NULL, " +
+                "email TEXT NOT NULL, " +
+                "gender TEXT NOT NULL, " +
                 "metrics TEXT NOT NULL);";
 
         String CREATE_GOALS_TABLE = "CREATE TABLE goals ( " +
@@ -88,30 +90,30 @@ public class SqlHelper extends SQLiteOpenHelper {
                 "targetName TEXT NOT NULL, " +
                 "targetNumber INTEGER NOT NULL, " +
                 "idUser INTEGER NOT NULL, " +
-                "FOREIGN KEY("+ KEY_FK_ID_USER_FOR_GOAL +") REFERENCES "+ TABLE_USERS +"("+KEY_ID_USER+"));";
+                "FOREIGN KEY(" + KEY_FK_ID_USER_FOR_GOAL + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID_USER + "));";
 
 
         String CREATE_ACTIVITIES_TABLE = "CREATE TABLE activities ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "duration TEXT NOT NULL, "+
-                "date TEXT NOT NULL, "+
-                "feedback TEXT, "+
+                "duration TEXT NOT NULL, " +
+                "date TEXT NOT NULL, " +
+                "feedback TEXT, " +
                 "idUser INTEGER NOT NULL," +
-                "FOREIGN KEY ("+ KEY_FK_ID_USER_FOR_ACTIVITY +") REFERENCES "+ TABLE_USERS + "("+KEY_ID_USER+"));";
+                "FOREIGN KEY (" + KEY_FK_ID_USER_FOR_ACTIVITY + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID_USER + "));";
 
         String CREATE_DISTANCE_ACTIVITIES_TABLE = "CREATE TABLE distanceActivities ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "distanceKM REAL, "+
-                "distanceMiles REAL, "+
+                "distanceKM REAL, " +
+                "distanceMiles REAL, " +
                 "idActivity INTEGER NOT NULL," +
-                "FOREIGN KEY ("+ KEY_FK_ID_ACTIVITY_FOR_DISTANCE +") REFERENCES "+ TABLE_ACTIVITIES + "("+KEY_ID_ACTIVITY+"));";
+                "FOREIGN KEY (" + KEY_FK_ID_ACTIVITY_FOR_DISTANCE + ") REFERENCES " + TABLE_ACTIVITIES + "(" + KEY_ID_ACTIVITY + "));";
 
         String CREATE_WORKOUT_ACTIVITIES_TABLE = "CREATE TABLE workoutActivities ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "repetitionType TEXT, "+
-                "repetitionNumber NUMBER, "+
+                "repetitionType TEXT, " +
+                "repetitionNumber NUMBER, " +
                 "idActivity INTEGER NOT NULL," +
-                "FOREIGN KEY ("+ KEY_FK_ID_ACTIVITY_FOR_WORKOUT +") REFERENCES "+ TABLE_ACTIVITIES + "("+KEY_ID_ACTIVITY+"));";
+                "FOREIGN KEY (" + KEY_FK_ID_ACTIVITY_FOR_WORKOUT + ") REFERENCES " + TABLE_ACTIVITIES + "(" + KEY_ID_ACTIVITY + "));";
 
         // create users table
         db.execSQL(CREATE_USERS_TABLE);
@@ -120,6 +122,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_DISTANCE_ACTIVITIES_TABLE);
         db.execSQL(CREATE_WORKOUT_ACTIVITIES_TABLE);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if existed
@@ -135,7 +138,7 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     // ------------ CRUD on USER ------------- //
     // Add a single user
-    public void addUser(User user){
+    public void addUser(User user) {
         Log.d("adding user", user.toString());
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -162,14 +165,12 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
     // Get a single user
-    public User getUser(int id){
+    public User getUser(int id) {
         User retrievedUser = new User();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID_USER + " = " + id +");";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID_USER + " = " + id + ");";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -177,22 +178,20 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         // 3. assign the result to the variable to return
         if (cursor.moveToFirst()) {
-                retrievedUser.setId(Integer.parseInt(cursor.getString(0)));
-                retrievedUser.setPassword(cursor.getString(1));
-                retrievedUser.setFirstname(cursor.getString(2));
-                retrievedUser.setLastname(cursor.getString(3));
-                retrievedUser.setAge(Integer.parseInt(cursor.getString(4)));
-                retrievedUser.setHeight(cursor.getString(5));
-                retrievedUser.setWeight(cursor.getString(6));
-                retrievedUser.setEmail(cursor.getString(7));
-                retrievedUser.setGender(cursor.getString(8));
-                retrievedUser.setMetrics(Integer.parseInt(cursor.getString(9)));
+            retrievedUser.setId(Integer.parseInt(cursor.getString(0)));
+            retrievedUser.setPassword(cursor.getString(1));
+            retrievedUser.setFirstname(cursor.getString(2));
+            retrievedUser.setLastname(cursor.getString(3));
+            retrievedUser.setAge(Integer.parseInt(cursor.getString(4)));
+            retrievedUser.setHeight(cursor.getString(5));
+            retrievedUser.setWeight(cursor.getString(6));
+            retrievedUser.setEmail(cursor.getString(7));
+            retrievedUser.setGender(cursor.getString(8));
+            retrievedUser.setMetrics(Integer.parseInt(cursor.getString(9)));
         }
         Log.d("Retrieved user", retrievedUser.toString());
         return retrievedUser; // return the user
     }
-
-
 
     // Updating single user
     public int updateUser(User user, String newFirstName, String newLastName, int newAge, String newHeight, String newWeight, String newEmail, String newGender, String newMetricsChoice) {
@@ -214,8 +213,8 @@ public class SqlHelper extends SQLiteOpenHelper {
         // 3. updating row
         int i = db.update(TABLE_USERS, //table
                 values, // column/value
-                KEY_ID_USER+" = ?", // selections
-                new String[] { String.valueOf(user.getId()) }); //selection args
+                KEY_ID_USER + " = ?", // selections
+                new String[]{String.valueOf(user.getId())}); //selection args
         // 4. close dbase
         db.close();
         Log.d("Updating user ", user.toString());
@@ -231,8 +230,8 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         // 2. delete
         db.delete(TABLE_USERS,
-                KEY_ID_USER+" = ?",
-                new String[] { String.valueOf(user.getId()) });
+                KEY_ID_USER + " = ?",
+                new String[]{String.valueOf(user.getId())});
 
         // 3. close
         db.close();
@@ -240,10 +239,95 @@ public class SqlHelper extends SQLiteOpenHelper {
         Log.d("deleting user ", user.toString());
     }
 
+    // ------------ CRUD on GOAL ------------- //
+    // Add a single goal
+    public void addGoal(Goal goal) {
+        Log.d("adding goal", goal.toString());
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_GOAL, goal.getId()); // get id
+        values.put(KEY_FK_ID_USER_FOR_GOAL, goal.getIdUser()); // get id user
+        values.put(KEY_TARGET_NAME, goal.getTargetName()); // get target name
+        values.put(KEY_TARGET_NUMBER, goal.getTargetNumber()); // get target number
+
+        // 3. insert
+        db.insert(TABLE_ACTIVITIES, // table
+                null, //nullColumnHack
+                values); // key/value -> keys = column names/values
+
+        // 4. Close dbase
+        db.close();
+    }
+
+    // Get a single goal
+    public Goal getGoal(int id) {
+        Goal retrievedGoal = new Goal();
+
+        // 1. build the query
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + KEY_ID_GOAL + " = " + id + ");";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
+            retrievedGoal.setId(Integer.parseInt(cursor.getString(0)));
+            retrievedGoal.setIdUser(Integer.parseInt(cursor.getString(1)));
+            retrievedGoal.setTargetName(cursor.getString(2));
+            retrievedGoal.setTargetNumber(Integer.parseInt(cursor.getString(3)));
+        }
+        Log.d("Retrieved goal", retrievedGoal.toString());
+        return retrievedGoal; // return the activity
+    }
+
+    // Updating single goal
+    public int updateGoal(Goal goal, String newTargetName, int newTargetNumber) {
+
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put("targetName", newTargetName); // target name
+        values.put("targetNumber", newTargetNumber); // target number
+
+        // 3. updating row
+        int i = db.update(TABLE_GOALS, //table
+                values, // column/value
+                KEY_ID_GOAL + " = ?", // selections
+                new String[]{String.valueOf(goal.getId())}); //selection args
+        // 4. close dbase
+        db.close();
+        Log.d("Updating goal ", goal.toString());
+        return i;
+
+    }
+
+    // Deleting single goal
+    public void deleteGoal(Goal goal) {
+
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. delete
+        db.delete(TABLE_GOALS,
+                KEY_ID_GOAL + " = ?",
+                new String[]{String.valueOf(goal.getId())});
+
+        // 3. close
+        db.close();
+
+        Log.d("deleting goal ", goal.toString());
+    }
+
 
     // ------------ CRUD on ACTIVITY ------------- //
     // Add a single activity
-    public void addActivity(Activity activity){
+    public void addActivity(Activity activity) {
         Log.d("adding activity", activity.toString());
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -266,14 +350,12 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
     // Get a single activity
-    public Activity getActivity(int id){
+    public Activity getActivity(int id) {
         Activity retrievedActivity = new Activity();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_ID_ACTIVITY + " = " + id +");";
+        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_ID_ACTIVITY + " = " + id + ");";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -285,14 +367,12 @@ public class SqlHelper extends SQLiteOpenHelper {
             retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(1)));
             retrievedActivity.setDuration(cursor.getString(2));
             retrievedActivity.setDate(cursor.getString(3));
-            retrievedActivity.setFeedback(cursor.getString(3));
-            retrievedActivity.setType(cursor.getString(3));
+            retrievedActivity.setFeedback(cursor.getString(4));
+            retrievedActivity.setType(cursor.getString(5));
         }
         Log.d("Retrieved activity", retrievedActivity.toString());
         return retrievedActivity; // return the activity
     }
-
-
 
     // Updating single activity
     public int updateActivity(Activity activity, String newDuration, String newDate, String newFeedback, String newType) {
@@ -310,8 +390,8 @@ public class SqlHelper extends SQLiteOpenHelper {
         // 3. updating row
         int i = db.update(TABLE_ACTIVITIES, //table
                 values, // column/value
-                KEY_ID_ACTIVITY+" = ?", // selections
-                new String[] { String.valueOf(activity.getId()) }); //selection args
+                KEY_ID_ACTIVITY + " = ?", // selections
+                new String[]{String.valueOf(activity.getId())}); //selection args
         // 4. close dbase
         db.close();
         Log.d("Updating activity ", activity.toString());
@@ -327,8 +407,8 @@ public class SqlHelper extends SQLiteOpenHelper {
 
         // 2. delete
         db.delete(TABLE_ACTIVITIES,
-                KEY_ID_ACTIVITY+" = ?",
-                new String[] { String.valueOf(activity.getId()) });
+                KEY_ID_ACTIVITY + " = ?",
+                new String[]{String.valueOf(activity.getId())});
 
         // 3. close
         db.close();
@@ -336,23 +416,22 @@ public class SqlHelper extends SQLiteOpenHelper {
         Log.d("deleting activity ", activity.toString());
     }
 
-
-    /*CRUD operations (create "add", read "get", update, delete) */
-/*
-    public void addBook(Book book){
-        Log.d("addBook", book.toString());
+    // ------------ CRUD on DISTANCEACTIVITY ------------- //
+    // Add a single distance activity
+    public void addActivityDistance(ActivityDistance activityDistance) {
+        Log.d("adding distanceactivity", activityDistance.toString());
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, book.getTitle()); // get title
-        values.put(KEY_AUTHOR, book.getAuthor()); // get author
-        values.put(KEY_RATING, book.getRating()); // get rating
-        values.put(KEY_COVER, book.getCover()); // get cover
+        values.put(KEY_ID_DISTANCE_ACTIVITY, activityDistance.getId()); // get id
+        values.put(KEY_FK_ID_ACTIVITY_FOR_DISTANCE, activityDistance.getIdActivity()); // get id activity
+        values.put(KEY_DISTANCE_MILES, activityDistance.getDistanceMiles()); // get distance miles
+        values.put(KEY_DISTANCE_KM, activityDistance.getDistanceKms()); // get distance kms
 
         // 3. insert
-        db.insert(TABLE_BOOKS, // table
+        db.insert(TABLE_DISTANCE_ACTIVITIES, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/values
 
@@ -360,156 +439,160 @@ public class SqlHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Get All Books
-    public List<Book> getAllBooks() {
-        List<Book> books = new LinkedList<Book>();
+    // Get a single distance activity
+    public ActivityDistance getActivityDistance(int id) {
+        ActivityDistance retrievedDistanceActivity = new ActivityDistance();
 
         // 1. build the query
-        String query = "SELECT  * FROM " + TABLE_BOOKS;
+        String query = "SELECT * FROM " + TABLE_DISTANCE_ACTIVITIES + " WHERE " + KEY_ID_DISTANCE_ACTIVITY + " = " + id + ");";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        // 3. go over each row, build book and add it to list
-        Book book = null;
+        // 3. assign the result to the variable to return
         if (cursor.moveToFirst()) {
-            do {
-                book = new Book();
-                book.setId(Integer.parseInt(cursor.getString(0)));
-                book.setTitle(cursor.getString(1));
-                book.setAuthor(cursor.getString(2));
-                book.setRating(cursor.getString(3));
-                book.setCover(cursor.getString(4));
-                // Add book to books
-                books.add(book);
-            } while (cursor.moveToNext());
+            retrievedDistanceActivity.setId(Integer.parseInt(cursor.getString(0)));
+            retrievedDistanceActivity.setIdActivity(Integer.parseInt(cursor.getString(1)));
+            retrievedDistanceActivity.setDistanceMiles(cursor.getString(2));
+            retrievedDistanceActivity.setDistanceKms(cursor.getString(3));
         }
-
-        Log.d("getAllBooks()", books.toString());
-
-        return books; // return books
+        Log.d("Retrieved distactivity", retrievedDistanceActivity.toString());
+        return retrievedDistanceActivity; // return the activity
     }
 
-    // Updating single book
-    public int updateBook(Book book, String newTitle, String newAuthor) {
+    // Updating single distance activity
+    public int updateDistanceActivity(ActivityDistance activityDistance, String newDistanceMiles, String newDistanceKms) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put("title", newTitle); // title
-        values.put("author", newAuthor); // author
+        values.put("distanceMiles", newDistanceMiles); // distance miles
+        values.put("distanceKms", newDistanceKms); // distance kms
 
         // 3. updating row
-        int i = db.update(TABLE_BOOKS, //table
+        int i = db.update(TABLE_DISTANCE_ACTIVITIES, //table
                 values, // column/value
-                KEY_ID+" = ?", // selections
-                new String[] { String.valueOf(book.getId()) }); //selection args
+                KEY_ID_DISTANCE_ACTIVITY + " = ?", // selections
+                new String[]{String.valueOf(activityDistance.getId())}); //selection args
         // 4. close dbase
         db.close();
-        Log.d("Simon Dupoy: UpdateBook", book.toString());
+        Log.d("Updating act dist ", activityDistance.toString());
         return i;
 
     }
 
-    // Deleting single book
-    public void deleteBook(Book book) {
+    // Deleting single distance activity
+    public void deleteDistanceActivity(ActivityDistance activityDistance) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(TABLE_BOOKS,
-                KEY_ID+" = ?",
-                new String[] { String.valueOf(book.getId()) });
+        db.delete(TABLE_DISTANCE_ACTIVITIES,
+                KEY_ID_DISTANCE_ACTIVITY + " = ?",
+                new String[]{String.valueOf(activityDistance.getId())});
 
         // 3. close
         db.close();
 
-        Log.d("Simon Dupoy: deleteBook", book.toString());
+        Log.d("deleting act distance ", activityDistance.toString());
     }
 
-    public int getIds(Book book)
-    {
-        String selectQuery = "SELECT id FROM books";
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor c = database.rawQuery(selectQuery, null);
-        c.moveToFirst();
-        int total = c.getCount();
-        Log.d("Number of entries:", String.valueOf(total));
-        return total;
+    // ------------ CRUD on WORKOUT ACTIVITY ------------- //
+    // Add a single workout activity
+    public void addActivityWorkout(ActivityWorkout activityWorkout) {
+        Log.d("adding Workoutactivity", activityWorkout.toString());
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_DISTANCE_ACTIVITY, activityWorkout.getId()); // get id
+        values.put(KEY_FK_ID_ACTIVITY_FOR_WORKOUT, activityWorkout.getIdActivity()); // get id activity
+        values.put(KEY_REP_TYPE, activityWorkout.getTypeOfRep()); // get repetition type
+        values.put(KEY_REP_NUMBER, activityWorkout.getNbOfRep()); // get repetition number
+
+        // 3. insert
+        db.insert(TABLE_WORKOUT_ACTIVITIES, // table
+                null, //nullColumnHack
+                values); // key/value -> keys = column names/values
+
+        // 4. Close dbase
+        db.close();
     }
 
-    // Get the number of records in database
-    public int getNumberOfRecords(){
-        String selectQuery = "SELECT id FROM books";
-        SQLiteDatabase database = this.getReadableDatabase();
-        Cursor c = database.rawQuery(selectQuery, null);
-        c.moveToFirst();
-        int total = c.getCount();
-        Log.d("Number of records:", String.valueOf(total));
-        return total;
-    }
-
-    // Get the highest ranked title(s)
-    public List<String> getHighestRankedTitles(){
-        List<String> highestTitles = new LinkedList<String>();
+    // Get a single workout activity
+    public ActivityWorkout getActivityWorkout(int id) {
+        ActivityWorkout retrievedWorkoutActivity = new ActivityWorkout();
 
         // 1. build the query
-        String query = "SELECT " + KEY_TITLE + " FROM " + TABLE_BOOKS + " WHERE " + KEY_RATING + " = (SELECT MAX(" + KEY_RATING + ") FROM " + TABLE_BOOKS +");";
+        String query = "SELECT * FROM " + TABLE_WORKOUT_ACTIVITIES + " WHERE " + KEY_ID_WORKOUT_ACTIVITY + " = " + id + ");";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        // 3. go over each row and add the title to list
-        String highTitle = null;
+        // 3. assign the result to the variable to return
         if (cursor.moveToFirst()) {
-            do {
-                highTitle = new String();
-                highTitle = cursor.getString(0);
-                highestTitles.add(highTitle);
-            } while (cursor.moveToNext());
+            retrievedWorkoutActivity.setId(Integer.parseInt(cursor.getString(0)));
+            retrievedWorkoutActivity.setIdActivity(Integer.parseInt(cursor.getString(1)));
+            retrievedWorkoutActivity.setTypeOfRep(cursor.getString(2));
+            retrievedWorkoutActivity.setNbOfRep(Integer.parseInt(cursor.getString(3)));
         }
-
-        Log.d("getHighestRankedTitle()", highestTitles.toString());
-
-        return highestTitles; // return highest book titles
+        Log.d("Retrieved wkoutactivity", retrievedWorkoutActivity.toString());
+        return retrievedWorkoutActivity; // return the activity
     }
 
-    public List<String> getLowestRankedTitles(){
-        List<String> lowestTitles = new LinkedList<String>();
+    // Updating single workout activity
+    public int updateWorkoutActivity(ActivityWorkout activityWorkout, String newTypeOfReps, int newNbOfReps) {
 
-        // 1. build the query
-        String query = "SELECT " + KEY_TITLE + " FROM " + TABLE_BOOKS + " WHERE " + KEY_RATING + "= (SELECT MIN("+KEY_RATING+") FROM " + TABLE_BOOKS +");";
-
-        // 2. get reference to writable DB
+        // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
 
-        // 3. go over each row and add the title to list
-        String lowTitle = null;
-        if (cursor.moveToFirst()) {
-            do {
-                lowTitle = new String();
-                lowTitle = cursor.getString(0);
-                lowestTitles.add(lowTitle);
-            } while (cursor.moveToNext());
-        }
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put("repetitionType", newTypeOfReps); // repetition type
+        values.put("repetitionNumber", newNbOfReps); // repetition number
 
-        Log.d("getLowestRankedTitles()", lowestTitles.toString());
+        // 3. updating row
+        int i = db.update(TABLE_DISTANCE_ACTIVITIES, //table
+                values, // column/value
+                KEY_ID_WORKOUT_ACTIVITY + " = ?", // selections
+                new String[]{String.valueOf(activityWorkout.getId())}); //selection args
+        // 4. close dbase
+        db.close();
+        Log.d("Updating wkout dist ", activityWorkout.toString());
+        return i;
 
-        return lowestTitles; // return lowest book titles
     }
 
-    public List<String> getSpecificTitles(){
-        List<String> bookTitles = new LinkedList<String>();
+    // Deleting single workout activity
+    public void deleteWorkoutActivity(ActivityWorkout activityWorkout) {
+
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. delete
+        db.delete(TABLE_WORKOUT_ACTIVITIES,
+                KEY_ID_WORKOUT_ACTIVITY + " = ?",
+                new String[]{String.valueOf(activityWorkout.getId())});
+
+        // 3. close
+        db.close();
+
+        Log.d("deleting wkout act ", activityWorkout.toString());
+    }
+
+
+    // ------------ SPECIAL QUERIES ON USER ---------------- //
+    public User getUserByEmail(String email) {
+        User user = new User();
 
         // 1. build the query
-        String titleToRetrieve = "Android 4";
-        String query = "SELECT " + KEY_TITLE + " FROM " + TABLE_BOOKS + " WHERE " + KEY_TITLE + " LIKE '%"+ titleToRetrieve +"%';";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_EMAIL + " = " + email + ";";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -518,17 +601,205 @@ public class SqlHelper extends SQLiteOpenHelper {
         // 3. go over each row and add title to list
         String bookTitle = null;
         if (cursor.moveToFirst()) {
+            user.setId(Integer.parseInt(cursor.getString(0)));
+            user.setPassword(cursor.getString(1));
+            user.setFirstname(cursor.getString(2));
+            user.setLastname(cursor.getString(3));
+            user.setAge(Integer.parseInt(cursor.getString(4)));
+            user.setHeight(cursor.getString(5));
+            user.setWeight(cursor.getString(6));
+            user.setEmail(cursor.getString(7));
+            user.setGender(cursor.getString(8));
+            user.setMetrics(Integer.parseInt(cursor.getString(9)));
+        }
+        Log.d("Retrieved user", user.toString());
+        return user; // return the user
+    }
+
+    // ------------ SPECIAL QUERIES ON ACTIVITY ---------------- //
+    public List<Activity> getAllByUser(User user) {
+        List<Activity> activities = new LinkedList<Activity>();
+
+        // 1. build the query
+        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_FK_ID_USER_FOR_ACTIVITY + " = " + user.getId() + ");";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Activity retrievedActivity = null;
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
             do {
-                bookTitle = new String();
-                bookTitle = cursor.getString(0);
-                bookTitles.add(bookTitle);
+                retrievedActivity = new Activity();
+                retrievedActivity.setId(Integer.parseInt(cursor.getString(0)));
+                retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(1)));
+                retrievedActivity.setDuration(cursor.getString(2));
+                retrievedActivity.setDate(cursor.getString(3));
+                retrievedActivity.setFeedback(cursor.getString(4));
+                retrievedActivity.setType(cursor.getString(5));
+                // Add activity to activities
+                activities.add(retrievedActivity);
             } while (cursor.moveToNext());
         }
 
-        Log.d("getSpecificTitles()", bookTitles.toString());
+        Log.d("getAllActByUser", activities.toString());
 
-        return bookTitles; // return specific book titles
+        return activities; // return activities by user
     }
-*/
+
+    public List<Activity> getAllByType(String type) {
+        List<Activity> activities = new LinkedList<Activity>();
+
+        // 1. build the query
+        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_TYPE + " = " + type + ");";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Activity retrievedActivity = null;
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
+            do {
+                retrievedActivity = new Activity();
+                retrievedActivity.setId(Integer.parseInt(cursor.getString(0)));
+                retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(1)));
+                retrievedActivity.setDuration(cursor.getString(2));
+                retrievedActivity.setDate(cursor.getString(3));
+                retrievedActivity.setFeedback(cursor.getString(4));
+                retrievedActivity.setType(cursor.getString(5));
+                // Add activity to activities
+                activities.add(retrievedActivity);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getAllActByUser", activities.toString());
+        return activities; // return activities by type
+    }
+
+    public List<Activity> getAllByDate(String date) {
+        List<Activity> activities = new LinkedList<Activity>();
+
+        // 1. build the query
+        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE + " = " + date + ");";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Activity retrievedActivity = null;
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
+            do {
+                retrievedActivity = new Activity();
+                retrievedActivity.setId(Integer.parseInt(cursor.getString(0)));
+                retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(1)));
+                retrievedActivity.setDuration(cursor.getString(2));
+                retrievedActivity.setDate(cursor.getString(3));
+                retrievedActivity.setFeedback(cursor.getString(4));
+                retrievedActivity.setType(cursor.getString(5));
+                // Add activity to activities
+                activities.add(retrievedActivity);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getAllActByUser", activities.toString());
+        return activities; // return activities by date
+    }
+
+    // ------------ SPECIAL QUERIES ON GOAL ---------------- //
+    public List<Goal> getAllGoalsByUser(User user) {
+        List<Goal> userGoals = new LinkedList<Goal>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + TABLE_GOALS + " WHERE " + KEY_FK_ID_USER_FOR_GOAL + " = " + user.getId();
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build goal and add it to list
+        Goal goal = null;
+        if (cursor.moveToFirst()) {
+            do {
+                goal = new Goal();
+                goal.setId(Integer.parseInt(cursor.getString(0)));
+                goal.setIdUser(Integer.parseInt(cursor.getString(1)));
+                goal.setTargetName(cursor.getString(2));
+                goal.setTargetNumber(Integer.parseInt(cursor.getString(3)));
+
+                // Add goal to user's goals
+                userGoals.add(goal);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getAllGoalsByUser", userGoals.toString());
+
+        return userGoals; // return user's goals
+    }
+
+    // ------------ SPECIAL QUERIES ON WORKOUT ACTIVITY ---------------- //
+    public List<ActivityWorkout> getWorkoutsByActivity(Activity activity) {
+        List<ActivityWorkout> workouts = new LinkedList<ActivityWorkout>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + TABLE_WORKOUT_ACTIVITIES + " WHERE " + KEY_FK_ID_ACTIVITY_FOR_WORKOUT + " = " + activity.getId();
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build workout and add it to list
+        ActivityWorkout workout = null;
+        if (cursor.moveToFirst()) {
+            do {
+                workout = new ActivityWorkout();
+                workout.setId(Integer.parseInt(cursor.getString(0)));
+                workout.setIdActivity(Integer.parseInt(cursor.getString(1)));
+                workout.setTypeOfRep(cursor.getString(2));
+                workout.setNbOfRep(Integer.parseInt(cursor.getString(3)));
+
+                // Add goal to workouts's activity
+                workouts.add(workout);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getWorkoutsByActivity", workouts.toString());
+
+        return workouts; // return workouts's activity
+    }
+
+    // ------------ SPECIAL QUERIES ON DISTANCE ACTIVITY---------------- //
+    public List<ActivityDistance> getDistancesByActivity(Activity activity) {
+        List<ActivityDistance> distances = new LinkedList<ActivityDistance>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + TABLE_DISTANCE_ACTIVITIES + " WHERE " + KEY_FK_ID_ACTIVITY_FOR_DISTANCE + " = " + activity.getId();
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build distance and add it to list
+        ActivityDistance distance = null;
+        if (cursor.moveToFirst()) {
+            do {
+                distance = new ActivityDistance();
+                distance.setId(Integer.parseInt(cursor.getString(0)));
+                distance.setIdActivity(Integer.parseInt(cursor.getString(1)));
+                distance.setDistanceMiles(cursor.getString(2));
+                distance.setDistanceKms(cursor.getString(3));
+
+                // Add distance to distances's activity
+                distances.add(distance);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getDistancesByActivity", distances.toString());
+
+        return distances; // return distances's activity
+    }
+
 }
 
