@@ -18,7 +18,7 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new SqlHelper(this);
-        btnSignIn = (Button) findViewById(R.id.btnSingIn);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         btnSignIn.setOnClickListener(this);
