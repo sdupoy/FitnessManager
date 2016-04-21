@@ -8,30 +8,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
 
-    android:background="#ffffff">
+    android:background="@drawable/backpic">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-        >
-
-        <ImageView android:src="@drawable/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+        android:padding="10dp">
 
         <EditText
-            android:id="@+id/etUserName"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@layout/edittext_default_bg"
             android:padding="10dp"
             android:hint="Email"
-            android:textColorHint="#cccccc"
+            android:textColorHint="#ffffff"
             android:drawableLeft="@drawable/email"/>
         <EditText
             android:id="@+id/etPass"
@@ -41,16 +34,26 @@
             android:layout_marginTop="-2dp"
             android:padding="10dp"
             android:hint="Password"
-            android:textColorHint="#cccccc"
+            android:textColorHint="#ffffff"
             android:password="true"
             android:drawableLeft="@drawable/password"/>
+        <CheckBox
+            android:id="@+id/rmPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPass"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="Remember Password"
+            android:textColor="#ffffff" />
         <Button
-            android:id="@+id/btnSingIn"
+            android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_margin="50dp"
-            android:text="Sign In"
+            android:text="SIGN IN"
             style="@style/DefaultButtonText"
             android:background="@layout/edittext_default_bg"
             />

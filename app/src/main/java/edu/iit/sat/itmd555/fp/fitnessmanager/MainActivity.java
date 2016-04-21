@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         Intent i = null;
         switch(v.getId()){
-            case R.id.btnSingIn:
+            case R.id.btnSignIn:
                 i = new Intent(this,SignInActivity.class);
                 break;
             case R.id.btnSignUp:
