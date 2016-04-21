@@ -10,6 +10,12 @@ import android.util.Log;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.Activity;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivityDistance;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivityWorkout;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.Goal;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
+
 
 /**
  * Created by Simon on 4/19/2016.

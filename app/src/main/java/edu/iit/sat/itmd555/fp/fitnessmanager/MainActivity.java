@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
+    private SqlHelper db;
 
     Button btnSignIn;
     Button btnSignUp;
@@ -16,7 +17,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        db = new SqlHelper(this);
         btnSignIn = (Button) findViewById(R.id.btnSingIn);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
