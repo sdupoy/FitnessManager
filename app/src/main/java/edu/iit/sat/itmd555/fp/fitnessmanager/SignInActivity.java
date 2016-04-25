@@ -27,12 +27,13 @@ public class SignInActivity extends Activity {
     private String EmailValue,passwordValue;
     private SharedPreferences sp;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in_screen);
 
         //去除标题
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_sign_in_screen);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //获得实例对象
         sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
@@ -43,12 +44,12 @@ public class SignInActivity extends Activity {
 
 
         //判断记住密码多选框的状态
-        if(sp.getBoolean("ISCHECK", false))
-        {
-            //设置默认是记录密码状态
-            rmPass.setChecked(true);
-            Email.setText(sp.getString("Email", ""));
-            password.setText(sp.getString("PASSWORD", ""));
+//        if(sp.getBoolean("ISCHECK", false))
+//        {
+//            //设置默认是记录密码状态
+//            rmPass.setChecked(true);
+//            Email.setText(sp.getString("Email", ""));
+//            password.setText(sp.getString("PASSWORD", ""));
 
         // 登录监听事件  现在默认为用户名为：li@123.com 密码：123
         btnSignIn.setOnClickListener(new OnClickListener() {
@@ -61,17 +62,19 @@ public class SignInActivity extends Activity {
                 {
                     Toast.makeText(SignInActivity.this,"SignIn successful!", Toast.LENGTH_SHORT).show();
                     //登录成功和记住密码框为选中状态才保存用户信息
-                    if(rmPass.isChecked())
-                    {
-                        //记住用户名、密码、
-                        Editor editor = sp.edit();
-                        editor.putString("Email", EmailValue);
-                        editor.putString("PASSWORD",passwordValue);
-                        editor.commit();
-                    }
+//                    if(rmPass.isChecked())
+//                    {
+//                        //记住用户名、密码、
+//                        Editor editor = sp.edit();
+//                        editor.putString("Email", EmailValue);
+//                        editor.putString("PASSWORD",passwordValue);
+//                        editor.commit();
+//                    }
                     //跳转界面
-                    Intent intent = new Intent(String.valueOf(SignInActivity.this));
-                    SignInActivity.this.startActivity(intent);
+
+                    Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
+                    startActivity(i);
+
                     //finish();
 
                 }else{
@@ -83,23 +86,22 @@ public class SignInActivity extends Activity {
         });
 
         //监听记住密码多选框按钮事件
-        rmPass.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                if (rmPass.isChecked()) {
-
-                    System.out.println("checked remember password");
-                    sp.edit().putBoolean("ISCHECK", true).commit();
-
-                }else {
-
-                    System.out.println("unchecked remember password");
-                    sp.edit().putBoolean("ISCHECK", false).commit();
-
-                }
-
-            }
-        });
+//        rmPass.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+//                if (rmPass.isChecked()) {
+//
+//                    System.out.println("checked remember password");
+//                    sp.edit().putBoolean("ISCHECK", true).commit();
+//
+//                }else {
+//
+//                    System.out.println("unchecked remember password");
+//                    sp.edit().putBoolean("ISCHECK", false).commit();
+//
+//                }
+//
+//            }
+//        });
     }
 }
 
-}

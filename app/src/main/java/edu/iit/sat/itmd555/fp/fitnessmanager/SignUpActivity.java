@@ -6,74 +6,87 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
+import android.content.Intent;
 
-public class SignUpActivity extends Activity
-{
-    EditText etUserName,editTextPassword,editTextConfirmPassword;
-    Button btnCreateAccount;
+//public class SignUpActivity extends Activity
+//{
+//    EditText etUserName,editTextPassword,editTextConfirmPassword;
+//    Button btnCreateAccount;
+//
+//    LoginDataBaseAdapter loginDataBaseAdapter;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState)
+//    {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_sign_up_screen);
+//
+//        // get Instance  of Database Adapter
+//        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
+//        loginDataBaseAdapter=loginDataBaseAdapter.open();
+//
+//        // Get Refferences of Views
+//        etUserName=(EditText)findViewById(R.id.etUserName);
+//        editTextPassword=(EditText)findViewById(R.id.etPass);
+//        editTextConfirmPassword=(EditText)findViewById(R.id.etcPass);
+//
+//        btnCreateAccount=(Button)findViewById(R.id.btnSignUp);
+//        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+//
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//
+//                String userName=etUserName.getText().toString();
+//                String password=editTextPassword.getText().toString();
+//                String confirmPassword=editTextConfirmPassword.getText().toString();
+//
+//                // check if any of the fields are vaccant
+//                if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
+//                {
+//                    Toast.makeText(getApplicationContext(), "Field Vaccant", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                // check if both password matches
+//                if(!password.equals(confirmPassword))
+//                {
+//                    Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                else
+//                {
+//                    // Save the Data in Database
+//                    loginDataBaseAdapter.insertEntry(userName, password);
+//                    Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+//    }
+//    @Override
+//    protected void onDestroy() {
+//        // TODO Auto-generated method stub
+//        super.onDestroy();
+//
+//        loginDataBaseAdapter.close();
+//    }
+//}
 
-    LoginDataBaseAdapter loginDataBaseAdapter;
+
+public class SignUpActivity extends Activity implements OnClickListener {
+
+    Button btnSignUp;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
 
-        // get Instance  of Database Adapter
-        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-        loginDataBaseAdapter=loginDataBaseAdapter.open();
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        // Get Refferences of Views
-        etUserName=(EditText)findViewById(R.id.etUserName);
-        editTextPassword=(EditText)findViewById(R.id.etPass);
-        editTextConfirmPassword=(EditText)findViewById(R.id.etcPass);
-
-        btnCreateAccount=(Button)findViewById(R.id.btnSignUp);
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                String userName=etUserName.getText().toString();
-                String password=editTextPassword.getText().toString();
-                String confirmPassword=editTextConfirmPassword.getText().toString();
-
-                // check if any of the fields are vaccant
-                if(userName.equals("")||password.equals("")||confirmPassword.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(), "Field Vaccant", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                // check if both password matches
-                if(!password.equals(confirmPassword))
-                {
-                    Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                else
-                {
-                    // Save the Data in Database
-                    loginDataBaseAdapter.insertEntry(userName, password);
-                    Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        btnSignUp.setOnClickListener(this);
     }
     @Override
-    protected void onDestroy() {
-        // TODO Auto-generated method stub
-        super.onDestroy();
-
-        loginDataBaseAdapter.close();
+    public void onClick(View v) {
+        Intent i = new Intent(getApplicationContext(),SignInActivity.class);
+        startActivity(i);
     }
 }
-
-
-//public class SignUpActivity extends Activity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_sign_up_screen);
-//    }
-//}
