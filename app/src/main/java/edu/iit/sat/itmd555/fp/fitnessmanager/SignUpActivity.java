@@ -1,7 +1,9 @@
 package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 import android.app.Activity;
+import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +11,11 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.content.Intent;
 
-//public class SignUpActivity extends Activity
+import java.util.Objects;
+
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
+
+//public class SignUpActivity extends ActivitySport
 //{
 //    EditText etUserName,editTextPassword,editTextConfirmPassword;
 //    Button btnCreateAccount;
@@ -72,21 +78,44 @@ import android.content.Intent;
 
 
 public class SignUpActivity extends Activity implements OnClickListener {
-
-    Button btnSignUp;
+    private SqlHelper db;
+    private Button btnSignUp;
+    private EditText Email, username, password, confirmPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
-
+        db = new SqlHelper(this);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
-
+        Email = (EditText) findViewById(R.id.etEmail);
+        username = (EditText) findViewById(R.id.etUserName);
+        password = (EditText) findViewById(R.id.etPass);
+        confirmPass = (EditText) findViewById(R.id.etcPass);
         btnSignUp.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(getApplicationContext(),SignInActivity.class);
-        startActivity(i);
-    }
+        User newUser = new User();
+        db.getAllUsers();
+        if(db.getUserByEmail(Email.getText().toString())==null){
+            Log.d("Email is free", "yes !");
+            if(Objects.equals(password.getText().toString(), confirmPass.getText().toString())){
+                Log.d("password is ok", "yes !");
+                newUser.setEmail(Email.getText().toString());
+                newUser.setPassword(password.getText().toString());
+                newUser.setUsername(username.getText().toString());
+                newUser.setMetrics(0);
+                db.addUser(newUser);
+                Intent i = new Intent(getApplicationContext(),SignInActivity.class);
+                startActivity(i);
+            } else{
+                Toast.makeText(this, "Passwords don't match !", Toast.LENGTH_LONG);
+            }
+
+        }else{
+            Toast.makeText(this, "Email already used!", Toast.LENGTH_LONG);
+        }
+        Log.d("user", newUser.toString())
+;    }
 }

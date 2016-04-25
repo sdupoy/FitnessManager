@@ -10,14 +10,14 @@ import android.view.Gravity;
 import android.widget.TextView;
 import android.preference.PreferenceActivity;
 
-//public class DActivity extends Activity{
+//public class DActivity extends ActivitySport{
 //
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //
 //        TextView tv = new TextView(this);
-//        tv.setText("This is D Activity!");
+//        tv.setText("This is D ActivitySport!");
 //        tv.setGravity(Gravity.CENTER);
 //        setContentView(tv);
 //    }

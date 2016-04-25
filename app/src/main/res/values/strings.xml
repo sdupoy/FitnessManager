@@ -20,4 +20,25 @@
     <string name="main_start">START</string>
     <string name="main_me">ME</string>
     <string name="main_setting">SETTING</string>
+    <!-- Strings related to "Add an activity" -->
+    <string name="add_activity_title">Add an activity</string>
+    <!-- Date related strings -->
+    <string name="date_label_set">Choose activity date</string>
+    <string name="date_button_set">Set date</string>
+    <string name="date_view_set">The date chosen is: </string>
+    <string name="date_selected"></string>
+    <!-- Time related strings -->
+    <string name="time_label_set">Set duration: </string>
+
+    <string name="type">Type:</string>
+
+    <string name="feedback">How do you feel?</string>
+
+    <!-- AActivity strings : Pedometer count -->
+    <string name="txtCount">Steps</string>
+    <string name="strStart">Start</string>
+    <string name="txtSteps">0</string>
+    <string name="reset">Reset</string>
+    <string name="strStop">Stop</string>
+
 </resources>

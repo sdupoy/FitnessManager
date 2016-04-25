@@ -6,8 +6,7 @@ package edu.iit.sat.itmd555.fp.fitnessmanager.model;
 public class User {
     private int id;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String Username;
     private int age;
     private String height;
     private String weight;
@@ -34,20 +33,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setUsername(String username) {
+        Username = username;
     }
 
     public int getAge() {
@@ -103,8 +94,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", password='" + password + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", Username='" + Username + '\'' +
                 ", age=" + age +
                 ", height='" + height + '\'' +
                 ", weight='" + weight + '\'' +

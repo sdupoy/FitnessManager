@@ -16,7 +16,7 @@ public class CActivity extends Activity{
         super.onCreate(savedInstanceState);
 
         TextView tv = new TextView(this);
-        tv.setText("This is C Activity!");
+        tv.setText("This is C ActivitySport!");
         tv.setGravity(Gravity.CENTER);
         setContentView(tv);
     }

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -19,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class SignInActivity extends Activity {
+import java.util.Objects;
 
+public class SignInActivity extends Activity {
+    private SqlHelper db;
     private EditText Email, password;
     private CheckBox rmPass;
     private Button btnSignIn;
@@ -31,7 +34,7 @@ public class SignInActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
-
+        db = new SqlHelper(this);
         //去除标题
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -57,11 +60,11 @@ public class SignInActivity extends Activity {
             public void onClick(View v) {
                 EmailValue = Email.getText().toString();
                 passwordValue = password.getText().toString();
-
-                if(EmailValue.equals("li@123.com")&&passwordValue.equals("123"))
-                {
-                    Toast.makeText(SignInActivity.this,"SignIn successful!", Toast.LENGTH_SHORT).show();
-                    //登录成功和记住密码框为选中状态才保存用户信息
+                if(Email.getText().length()!=0 || password.getText().length()!=0){
+                    if(db.getUserByEmail(EmailValue)!=null){
+                        if(Objects.equals(db.getUserByEmail(EmailValue).getPassword(), passwordValue)){
+                            Toast.makeText(SignInActivity.this,"SignIn successful!", Toast.LENGTH_SHORT).show();
+                            //登录成功和记住密码框为选中状态才保存用户信息
 //                    if(rmPass.isChecked())
 //                    {
 //                        //记住用户名、密码、
@@ -70,16 +73,29 @@ public class SignInActivity extends Activity {
 //                        editor.putString("PASSWORD",passwordValue);
 //                        editor.commit();
 //                    }
-                    //跳转界面
+                            //跳转界面
 
-                    Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
-                    startActivity(i);
+                            Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
+                            startActivity(i);
+                        } else if(EmailValue.equals("li@123.com")&&passwordValue.equals("123")){
+                            Toast.makeText(SignInActivity.this,"SignIn successful!", Toast.LENGTH_SHORT).show();
 
-                    //finish();
+                            Log.d("1", "yes");
+                            Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
+                            startActivity(i);
+                            Log.d("2", "yes2");
+                            //finish();
 
-                }else{
+                        }else{
 
-                    Toast.makeText(SignInActivity.this,"Email or Password wrong! Please try again!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this,"Email or Password wrong! Please try again!", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                }  else{
+
+                    Toast.makeText(SignInActivity.this,"Email or Password empty! Please try again!", Toast.LENGTH_LONG).show();
                 }
 
             }
