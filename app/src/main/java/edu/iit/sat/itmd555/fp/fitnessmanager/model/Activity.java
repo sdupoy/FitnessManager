@@ -1,4 +1,4 @@
-package edu.iit.sat.itmd555.fp.fitnessmanager;
+package edu.iit.sat.itmd555.fp.fitnessmanager.model;
 
 /**
  * Created by Simon on 4/18/2016.

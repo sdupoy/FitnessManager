@@ -10,12 +10,11 @@ import android.os.Handler;
 
 public class Splash extends AppCompatActivity {
     // splash time
-    private static int SPLASH_TIME = 5000;
+    private static int SPLASH_TIME = 1000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable() {
