@@ -25,7 +25,7 @@ import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
 public class SqlHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -739,9 +739,12 @@ public class SqlHelper extends SQLiteOpenHelper {
             user.setGender(cursor.getString(7));
             user.setMetrics(Integer.parseInt(cursor.getString(8)));
             Log.d("Retrieved user", user.toString());
+            return user; // return the user
+        } else{
+            return null;
         }
 
-        return user; // return the user
+
     }
 
     public void createUser(User user){
@@ -981,9 +984,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                 result = true;
             }
         }
-
-
-        Log.d("isDistanceAtDate", String.valueOf(result));
+        //Log.d("isDistanceAtDate", String.valueOf(result));
         return result; // return result
     }
 
@@ -1008,7 +1009,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
 
 
-        Log.d("isWorkoutAtDate", String.valueOf(result));
+        //Log.d("isWorkoutAtDate", String.valueOf(result));
         return result; // return result
     }
 

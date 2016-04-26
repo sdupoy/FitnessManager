@@ -11,8 +11,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
+
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.Step;
 
 public class AActivity extends Activity implements SensorEventListener {
 
@@ -29,6 +37,10 @@ public class AActivity extends Activity implements SensorEventListener {
     private double mLastY;
     private double mLastZ;
 
+    private SqlHelper db;
+    private List<Step> steps;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,38 @@ public class AActivity extends Activity implements SensorEventListener {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         startSensor();
+
+        db = new SqlHelper(this);
+
+        for(int i=1; i<10; i++){
+            Step step = new Step();
+            step.setIdUser(1);
+            String date = "2016/04/0" + String.valueOf(i);
+            step.setStepsDate(date);
+            step.setNbOfSteps(i*i);
+            db.addSteps(step);
+        }
+        ListView listContent = (ListView) findViewById(R.id.activityList);
+        steps = db.getAllStepsByUser(1);
+
+
+        StepsAdapter customAdapter = new StepsAdapter(this, steps);
+        listContent.setAdapter(customAdapter);
+
+        listContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView arg0, View arg1, int position,
+                                    long arg3) {
+                TextView date = (TextView) findViewById(R.id.dateActivity);
+                Log.d("Date: ", date.getText().toString());
+                Log.d("position: ", String.valueOf(position));
+
+                //Intent i = new Intent(ViewHistoryActivity.this, ViewDateDetails.class);
+                //i.putExtra("date", steps.get(position).getStepsDate());
+                //startActivity(i);
+            }
+        });
 
     }
 

@@ -98,10 +98,13 @@ public class SignUpActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         User newUser = new User();
         db.getAllUsers();
+        Log.d("Email", Email.getText().toString());
         if(db.getUserByEmail(Email.getText().toString())==null){
             Log.d("Email is free", "yes !");
             if(Objects.equals(password.getText().toString(), confirmPass.getText().toString())){
                 Log.d("password is ok", "yes !");
+                Log.d("username", username.getText().toString());
+                Log.d("password", password.getText().toString());
                 newUser.setEmail(Email.getText().toString());
                 newUser.setPassword(password.getText().toString());
                 newUser.setUsername(username.getText().toString());
@@ -110,11 +113,12 @@ public class SignUpActivity extends Activity implements OnClickListener {
                 Intent i = new Intent(getApplicationContext(),SignInActivity.class);
                 startActivity(i);
             } else{
-                Toast.makeText(this, "Passwords don't match !", Toast.LENGTH_LONG);
+                Toast.makeText(SignUpActivity.this, "Passwords don't match !", Toast.LENGTH_LONG).show();
             }
 
         }else{
-            Toast.makeText(this, "Email already used!", Toast.LENGTH_LONG);
+            Log.d("Email is free", "no !");
+            Toast.makeText(SignUpActivity.this, "Email already used!", Toast.LENGTH_LONG).show();
         }
         Log.d("user", newUser.toString())
 ;    }
