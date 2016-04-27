@@ -8,7 +8,6 @@ public class ActivityWorkout {
     private int idActivity;
     private int nbOfRep;
     private String typeOfRep;
-    private String title;
 
     public ActivityWorkout() {
     }
@@ -45,14 +44,6 @@ public class ActivityWorkout {
         this.typeOfRep = typeOfRep;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @Override
     public String toString() {
         return "ActivityWorkout{" +
@@ -60,7 +51,6 @@ public class ActivityWorkout {
                 ", idActivity=" + idActivity +
                 ", nbOfRep=" + nbOfRep +
                 ", typeOfRep='" + typeOfRep + '\'' +
-                ", title='" + title + '\'' +
                 '}';
     }
 }

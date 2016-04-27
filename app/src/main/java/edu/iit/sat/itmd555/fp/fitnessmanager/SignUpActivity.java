@@ -86,7 +86,7 @@ public class SignUpActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
-        db = new SqlHelper(this);
+        db = SqlHelper.getInstance(getApplicationContext());
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         Email = (EditText) findViewById(R.id.etEmail);
         username = (EditText) findViewById(R.id.etUserName);

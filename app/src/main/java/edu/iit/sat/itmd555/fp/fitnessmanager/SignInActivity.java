@@ -34,7 +34,7 @@ public class SignInActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
-        db = new SqlHelper(this);
+        db = SqlHelper.getInstance(getApplicationContext());
         //去除标题
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 

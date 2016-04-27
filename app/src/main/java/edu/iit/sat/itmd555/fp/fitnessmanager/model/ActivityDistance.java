@@ -8,7 +8,6 @@ public class ActivityDistance {
     private int idActivity;
     private String distanceMiles;
     private String distanceKms;
-    private String title;
 
     public ActivityDistance() {
     }
@@ -45,14 +44,6 @@ public class ActivityDistance {
         this.distanceKms = distanceKms;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @Override
     public String toString() {
         return "ActivityDistance{" +
@@ -60,7 +51,6 @@ public class ActivityDistance {
                 ", idActivity=" + idActivity +
                 ", distanceMiles='" + distanceMiles + '\'' +
                 ", distanceKms='" + distanceKms + '\'' +
-                ", title='" + title + '\'' +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ public class AddDistanceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_distance_activity);
 
-        db = new SqlHelper(this);
+        db = SqlHelper.getInstance(getApplicationContext());
         addSportDistActivity = (Button) findViewById(R.id.addDistActivity);
 
 

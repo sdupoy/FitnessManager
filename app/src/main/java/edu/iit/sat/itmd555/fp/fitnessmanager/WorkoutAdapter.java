@@ -55,7 +55,7 @@ public class WorkoutAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        db = new SqlHelper(mContext);
+        db = SqlHelper.getInstance(mContext);
 
         if(convertView == null) {
             convertView = mInflator.inflate(R.layout.workout_list_row, parent,

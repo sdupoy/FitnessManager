@@ -57,7 +57,7 @@ public class BActivity extends Activity{
         durationSeconds = (EditText) findViewById(R.id.durationSeconds);
         feedbackRatingBar = (RatingBar) findViewById(R.id.feedbackRatingBar);
 
-        db = new SqlHelper(this);
+        db = SqlHelper.getInstance(getApplicationContext());
 
         addSportActivity = (Button) findViewById(R.id.addSportActivity);
 
@@ -150,11 +150,11 @@ public class BActivity extends Activity{
 
     private void showDate(int year, int month, int day) {
         StringBuilder date = new StringBuilder();
-        date.append(year).append("/");
+        date.append(year).append("-");
         if(month<10){
             date.append("0");
         }
-        date.append(month).append("/");
+        date.append(month).append("-");
         if(day<10){
             date.append("0");
         }

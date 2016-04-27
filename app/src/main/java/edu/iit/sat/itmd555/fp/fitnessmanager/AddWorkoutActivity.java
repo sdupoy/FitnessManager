@@ -37,7 +37,7 @@ public class AddWorkoutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_activity);
 
-        db = new SqlHelper(this);
+        db = SqlHelper.getInstance(getApplicationContext());
         addWkoutActivity = (Button) findViewById(R.id.addWkoutActivity);
         addMoreWkout = (Button) findViewById(R.id.addMoreWkout);
 

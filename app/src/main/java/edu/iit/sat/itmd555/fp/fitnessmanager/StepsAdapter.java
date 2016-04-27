@@ -55,7 +55,7 @@ public class StepsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        db = new SqlHelper(mContext);
+        db = SqlHelper.getInstance(mContext);
 
         if(convertView == null) {
             convertView = mInflator.inflate(R.layout.history_list_row, parent,

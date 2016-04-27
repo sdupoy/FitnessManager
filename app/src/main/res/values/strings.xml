@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Fitness Manager</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_splash">Welcome to Fitness Manager</string>
+    <string name="title_activity_splash">Fitness Manager</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

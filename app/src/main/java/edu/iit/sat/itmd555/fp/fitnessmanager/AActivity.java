@@ -5,7 +5,9 @@ package edu.iit.sat.itmd555.fp.fitnessmanager;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,6 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import edu.iit.sat.itmd555.fp.fitnessmanager.model.Step;
@@ -26,6 +31,9 @@ public class AActivity extends Activity implements SensorEventListener {
 
     private final float NOISE = (float) 2.5; // maybe increase the noise?
     private boolean mInitialized; // used for initializing sensor only once
+
+    private Calendar calendar;
+    private int year, month, day;
 
     private SensorManager mSensorManager;
 
@@ -38,8 +46,11 @@ public class AActivity extends Activity implements SensorEventListener {
     private double mLastZ;
 
     private SqlHelper db;
+    private Step currentStep;
     private List<Step> steps;
 
+    private ListView listContent;
+    private StepsAdapter customAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,24 +64,25 @@ public class AActivity extends Activity implements SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         startSensor();
 
-        db = new SqlHelper(this);
-        /*
+
+        db = SqlHelper.getInstance(getApplicationContext());
+/*
         for(int i=1; i<10; i++){
             Step step = new Step();
             step.setIdUser(1);
-            String date = "2016/04/0" + String.valueOf(i);
+            String date = "2016-04-0" + String.valueOf(i);
             step.setStepsDate(date);
             step.setNbOfSteps(i*i);
             db.addSteps(step);
         }
-        */
-        ListView listContent = (ListView) findViewById(R.id.activityList);
+*/
+        listContent = (ListView) findViewById(R.id.activityList);
         steps = db.getAllStepsByUser(1);
 
         listContent.destroyDrawingCache();
         listContent.setVisibility(ListView.INVISIBLE);
         listContent.setVisibility(ListView.VISIBLE);
-        StepsAdapter customAdapter = new StepsAdapter(this, steps);
+        customAdapter = new StepsAdapter(this, steps);
         listContent.setAdapter(customAdapter);
 
         listContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,15 +91,35 @@ public class AActivity extends Activity implements SensorEventListener {
             public void onItemClick(AdapterView arg0, View arg1, int position,
                                     long arg3) {
                 TextView date = (TextView) findViewById(R.id.dateActivity);
-                Log.d("Date: ", date.getText().toString());
+                Log.d("Date: ", steps.get(position).toString());
                 Log.d("position: ", String.valueOf(position));
 
+                // if details availabel !!!
                 //Intent i = new Intent(AActivity.this, ViewDateDetails.class);
                 //i.putExtra("date", steps.get(position).getStepsDate());
                 //startActivity(i);
             }
         });
 
+        listContent.setLongClickable(true);
+        listContent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int pos, long id) {
+                Log.d("long clicked","pos: " + pos);
+                AlertDialog diaBox = AskOption(steps.get(pos));
+                diaBox.show();
+                return true;
+            }
+        });
+        checkingCurrentStep();
+        stepsCount = currentStep.getNbOfSteps();
+        count.setText(String.valueOf(currentStep.getNbOfSteps()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkingCurrentStep();
     }
 
     private void startSensor() {
@@ -144,6 +176,7 @@ public class AActivity extends Activity implements SensorEventListener {
                 stepsCount = stepsCount + 1;
                 if (stepsCount > 0) {
                     count.setText(String.valueOf(stepsCount));
+                    currentStep.setNbOfSteps(stepsCount);
                 }
             }
         } else {
@@ -157,6 +190,69 @@ public class AActivity extends Activity implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(db.getStepsByDateAndUser(1, currentStep.getStepsDate())==null){
+            db.addSteps(currentStep);
+        } else {
+            db.updateStep(db.getStepsByDateAndUser(currentStep.getIdUser(), currentStep.getStepsDate()), currentStep.getStepsDate(), currentStep.getNbOfSteps());
+        }
+    }
+
+    private AlertDialog AskOption(final Step step)
+    {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+
+                .setTitle("Delete")
+                .setMessage("Do you want to delete all details of this day ?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //db.deleteWorkoutActivity();
+                        db.deleteStep(step.getId());
+                        dialog.dismiss();
+                        steps = db.getAllStepsByUser(1);
+                        listContent.destroyDrawingCache();
+                        customAdapter = new StepsAdapter(getApplicationContext(), steps);
+                        listContent.setAdapter(customAdapter);
+                        listContent.setVisibility(ListView.INVISIBLE);
+                        listContent.setVisibility(ListView.VISIBLE);
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
+    protected void checkingCurrentStep(){
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        date.replace('-','/');
+        Log.d("date step: ", date);
+        currentStep = new Step();
+        currentStep.setIdUser(1);
+        currentStep.setStepsDate(date);
+        if(db.getStepsByDateAndUser(currentStep.getIdUser(), currentStep.getStepsDate())!=null){
+            currentStep.setNbOfSteps(db.getNbStepsByDateAndUser(currentStep.getIdUser(), currentStep.getStepsDate()));
+        }
+        steps = db.getAllStepsByUser(1);
+        listContent.destroyDrawingCache();
+        customAdapter = new StepsAdapter(this, steps);
+        listContent.setAdapter(customAdapter);
+        listContent.setVisibility(ListView.INVISIBLE);
+        listContent.setVisibility(ListView.VISIBLE);
 
     }
 }

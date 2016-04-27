@@ -24,8 +24,11 @@ import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
  */
 public class SqlHelper extends SQLiteOpenHelper {
 
+    // Ensure to have only one SQLHELPER opened for the entire lifecycle !
+    private static SqlHelper mInstance = null;
+
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -85,10 +88,25 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static final String KEY_REP_NUMBER = "repetition_number";
     private static final String KEY_FK_ID_ACTIVITY_FOR_WORKOUT = "id_activity";
 
+
+
+    public static SqlHelper getInstance(Context ctx) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        if (mInstance == null) {
+            mInstance = new SqlHelper(ctx.getApplicationContext());
+        }
+        return mInstance;
+    }
+
+    /**
+     * Constructor should be private to prevent direct instantiation.
+     * make call to static factory method "getInstance()" instead.
+     */
     public SqlHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -147,7 +165,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + KEY_FK_ID_USER_FOR_STEPS + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID_USER + "));";
 
         // create users table
-        db.execSQL(CREATE_USERS_TABLE);
+        //db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_GOALS_TABLE);
         db.execSQL(CREATE_ACTIVITIES_TABLE);
         db.execSQL(CREATE_DISTANCE_ACTIVITIES_TABLE);
@@ -159,7 +177,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTANCE_ACTIVITIES);
@@ -969,7 +987,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         boolean result = false;
         // 1. build the query
         String dist = "Distance";
-        String query = "SELECT DISTINCT " + KEY_TYPE + " FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE+ " = " + date + " AND " + KEY_TYPE + "=\'" + dist + "\';";
+        String query = "SELECT DISTINCT " + KEY_TYPE + " FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE+ " = \'" + date + "\' AND " + KEY_TYPE + "=\'" + dist + "\';";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -992,7 +1010,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         boolean result = false;
         // 1. build the query
         String wkout = "Workout";
-        String query = "SELECT DISTINCT " + KEY_TYPE + " FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE+ " = " + date + " AND " + KEY_TYPE + "=\'" + wkout + "\';";
+        String query = "SELECT DISTINCT " + KEY_TYPE + " FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE+ " = \'" + date + "\' AND " + KEY_TYPE + "=\'" + wkout + "\';";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1110,7 +1128,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         List<Step> steps = new LinkedList<Step>();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_STEPS + " WHERE " + KEY_FK_ID_USER_FOR_STEPS + " = " + idUser + ";";
+        String query = "SELECT * FROM " + TABLE_STEPS + " WHERE " + KEY_FK_ID_USER_FOR_STEPS + " = " + idUser + " ORDER BY " + KEY_STEPS_DATE + " DESC;";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1136,5 +1154,47 @@ public class SqlHelper extends SQLiteOpenHelper {
         return steps; // return activities by user
     }
 
+    public Step getStepsByDateAndUser(int idUser, String date) {
+
+        // 1. build the query
+        String query = "SELECT * FROM " + TABLE_STEPS + " WHERE " + KEY_FK_ID_USER_FOR_STEPS + " = " + idUser + " AND " + KEY_STEPS_DATE + " = \'" + date + "\' ;";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Step retrievedStep = null;
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
+            retrievedStep = new Step();
+            retrievedStep.setId(Integer.parseInt(cursor.getString(0)));
+            retrievedStep.setStepsDate(cursor.getString(1));
+            retrievedStep.setNbOfSteps(Integer.parseInt(cursor.getString(2)));
+            retrievedStep.setIdUser(Integer.parseInt(cursor.getString(3)));
+
+            Log.d("getStepsByUSer&Date", retrievedStep.toString());
+        }
+        return retrievedStep; // return step
+    }
+
+    public int getNbStepsByDateAndUser(int idUser, String date) {
+
+        // 1. build the query
+        String query = "SELECT " + KEY_NB_OF_STEPS + " FROM " + TABLE_STEPS + " WHERE " + KEY_FK_ID_USER_FOR_STEPS + " = " + idUser + " AND " + KEY_STEPS_DATE + " = \'" + date + "\' ;";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Step retrievedStep = null;
+
+        // 3. assign the result to the variable to return
+        if (cursor.moveToFirst()) {
+            retrievedStep = new Step();
+            retrievedStep.setNbOfSteps(Integer.parseInt(cursor.getString(0)));
+
+            Log.d("getNbStepsByUSer&Date", String.valueOf(retrievedStep.getNbOfSteps()));
+        }
+        return retrievedStep.getNbOfSteps(); // return nb of step for this day and this user
+    }
 }
 
