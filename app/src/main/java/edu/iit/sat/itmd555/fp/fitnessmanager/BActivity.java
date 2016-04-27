@@ -7,15 +7,23 @@ package edu.iit.sat.itmd555.fp.fitnessmanager;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
+
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivitySport;
 
 public class BActivity extends Activity{
 
@@ -29,6 +37,7 @@ public class BActivity extends Activity{
     private EditText durationMinutes;
     private EditText durationSeconds;
     private RatingBar feedbackRatingBar;
+    private Button addSportActivity;
 
 
     @Override
@@ -49,6 +58,69 @@ public class BActivity extends Activity{
         feedbackRatingBar = (RatingBar) findViewById(R.id.feedbackRatingBar);
 
         db = new SqlHelper(this);
+
+        addSportActivity = (Button) findViewById(R.id.addSportActivity);
+
+
+        addSportActivity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (durationHours.getText().length() == 0 && durationMinutes.getText().length() == 0 && durationSeconds.getText().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid duration", Toast.LENGTH_LONG).show();
+                    return;
+                } // else if (duration validator: minutes and seconds must be lower than 60)
+                else if ((Integer.parseInt(durationMinutes.getText().toString()) > 59) || (Integer.parseInt(durationSeconds.getText().toString()) > 59) ){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid duration", Toast.LENGTH_LONG).show();
+                    return;
+                } // else if (duration validator: hours, minutes and seconds must not be all equal to 0)
+                else if ((Integer.parseInt(durationHours.getText().toString()) == 0) && (Integer.parseInt(durationMinutes.getText().toString()) == 0) && (Integer.parseInt(durationSeconds.getText().toString()) == 0) ){
+                    Toast.makeText(getApplicationContext(), "Please enter a valid duration", Toast.LENGTH_LONG).show();
+                    return;
+                } // else if it's ok
+                else {
+                    ActivitySport activity = new ActivitySport();
+                    activity.setDate(dateSelected.getText().toString());
+                    activity.setIdUser(1);
+                    activity.setDurationHours((Integer.parseInt(durationHours.getText().toString())));
+                    activity.setDurationMinutes((Integer.parseInt(durationMinutes.getText().toString())));
+                    activity.setDurationSeconds((Integer.parseInt(durationSeconds.getText().toString())));
+                    activity.setJustCreated(1);
+                    activity.setFeedback(Float.toString(feedbackRatingBar.getRating()));
+                    EditText distTitle = (EditText) findViewById(R.id.distTitleInput);
+                    activity.setTitle(distTitle.getText().toString());
+                    Log.d("Date: ", activity.getDate());
+                    Log.d("Duration hours: ", String.valueOf(activity.getDurationHours()));
+                    Log.d("Duration minutes: ", String.valueOf(activity.getDurationMinutes()));
+                    Log.d("Duration seconds: ", String.valueOf(activity.getDurationSeconds()));
+                    Log.d("just created: ", Integer.toString(activity.getJustCreated()));
+                    Log.d("feedback: ",  activity.getFeedback());
+                    Log.d("title: ",  activity.getTitle());
+
+                    RadioButton distance = (RadioButton) findViewById(R.id.distance);
+                    RadioButton workout = (RadioButton) findViewById(R.id.workout);
+                    if(distance.isChecked()){
+                        activity.setType("Distance");
+                        Log.d("Type: ", activity.getType());
+                        //Store the activity into db !
+                        db.addActivity(activity);
+                        // Start the new activity to add distance
+                        Intent i = new Intent(getApplicationContext(), AddDistanceActivity.class);
+                        startActivity(i);
+
+                    } else {
+                        activity.setType("Workout");
+                        Log.d("Type: ", activity.getType());
+                        // Store the activity into db !
+                        db.addActivity(activity);
+                        Intent i = new Intent(getApplicationContext(), AddWorkoutActivity.class);
+                        startActivity(i);
+
+
+                    }
+
+                }
+
+            }
+        });
     }
 
     @SuppressWarnings("deprecation")
@@ -91,80 +163,3 @@ public class BActivity extends Activity{
     }
 
 }
-
-
-/*
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-
-    // this method is called when the user clicks the calculate button and is handled because we
-    // assigned the name to the "OnClick property" of the button
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button:
-                List<Activity> activities = db.getAllByUser(1);
-                if (durationHours.getText().length() == 0 && durationMinutes.getText().length() == 0 && durationSeconds.getText().length() == 0) {
-                    Toast.makeText(this, "Please enter a valid duration", Toast.LENGTH_LONG).show();
-                    return;
-                } // else if (duration validator: minutes and seconds must be lower than 60)
-                else if ((Integer.parseInt(durationMinutes.getText().toString()) > 59) || (Integer.parseInt(durationSeconds.getText().toString()) > 59) ){
-                    Toast.makeText(this, "Please enter a valid duration", Toast.LENGTH_LONG).show();
-                    return;
-                } // else if (duration validator: hours, minutes and seconds must not be all equal to 0)
-                else if ((Integer.parseInt(durationHours.getText().toString()) == 0) && (Integer.parseInt(durationMinutes.getText().toString()) == 0) && (Integer.parseInt(durationSeconds.getText().toString()) == 0) ){
-                    Toast.makeText(this, "Please enter a valid duration", Toast.LENGTH_LONG).show();
-                    return;
-                } // else if it's ok
-                else {
-                    Activity activity = new Activity();
-                    activity.setDate(dateSelected.getText().toString());
-                    activity.setIdUser(1);
-                    activity.setDurationHours((Integer.parseInt(durationHours.getText().toString())));
-                    activity.setDurationMinutes((Integer.parseInt(durationMinutes.getText().toString())));
-                    activity.setDurationSeconds((Integer.parseInt(durationSeconds.getText().toString())));
-                    activity.setJustCreated(1);
-                    activity.setFeedback(Float.toString(feedbackRatingBar.getRating()));
-                    EditText distTitle = (EditText) findViewById(R.id.distTitleInput);
-                    activity.setTitle(distTitle.getText().toString());
-                    distTitle.setText("");
-                    Log.d("Date: ", dateSelected.getText().toString());
-                    Log.d("Duration hours: ", durationHours.getText().toString());
-                    Log.d("Duration minutes: ", durationMinutes.getText().toString());
-                    Log.d("Duration seconds: ", durationSeconds.getText().toString());
-                    Log.d("just created: ", Integer.toString(activity.getJustCreated()));
-                    Log.d("feedback: ",  Float.toString(feedbackRatingBar.getRating()));
-
-                    RadioButton distance = (RadioButton) findViewById(R.id.distance);
-                    RadioButton workout = (RadioButton) findViewById(R.id.workout);
-                    if(distance.isChecked()){
-                        activity.setType("Distance");
-                        Log.d("Type: ", activity.getType());
-                        //Store the activity into db !
-                        db.addActivity(activity);
-                        RelativeLayout activityBaseLayout = (RelativeLayout) findViewById(R.id.activityBaseLayout);
-                        activityBaseLayout.setVisibility(View.GONE);
-
-                        RelativeLayout distanceLayout = (RelativeLayout) findViewById(R.id.distanceLayout);
-                        distanceLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        activity.setType("Workout");
-                        Log.d("Type: ", activity.getType());
-                        // Store the activity into db !
-                        db.addActivity(activity);
-                        RelativeLayout activityBaseLayout = (RelativeLayout) findViewById(R.id.activityBaseLayout);
-                        activityBaseLayout.setVisibility(View.GONE);
-
-                        RelativeLayout workoutLayout = (RelativeLayout) findViewById(R.id.workoutLayout);
-                        workoutLayout.setVisibility(View.VISIBLE);
-
-                    }
-
-                }
-                break;
-
-
- */

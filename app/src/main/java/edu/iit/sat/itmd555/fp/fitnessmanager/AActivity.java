@@ -54,7 +54,7 @@ public class AActivity extends Activity implements SensorEventListener {
         startSensor();
 
         db = new SqlHelper(this);
-
+        /*
         for(int i=1; i<10; i++){
             Step step = new Step();
             step.setIdUser(1);
@@ -63,10 +63,13 @@ public class AActivity extends Activity implements SensorEventListener {
             step.setNbOfSteps(i*i);
             db.addSteps(step);
         }
+        */
         ListView listContent = (ListView) findViewById(R.id.activityList);
         steps = db.getAllStepsByUser(1);
 
-
+        listContent.destroyDrawingCache();
+        listContent.setVisibility(ListView.INVISIBLE);
+        listContent.setVisibility(ListView.VISIBLE);
         StepsAdapter customAdapter = new StepsAdapter(this, steps);
         listContent.setAdapter(customAdapter);
 
@@ -79,7 +82,7 @@ public class AActivity extends Activity implements SensorEventListener {
                 Log.d("Date: ", date.getText().toString());
                 Log.d("position: ", String.valueOf(position));
 
-                //Intent i = new Intent(ViewHistoryActivity.this, ViewDateDetails.class);
+                //Intent i = new Intent(AActivity.this, ViewDateDetails.class);
                 //i.putExtra("date", steps.get(position).getStepsDate());
                 //startActivity(i);
             }

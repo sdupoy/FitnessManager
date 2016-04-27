@@ -25,7 +25,7 @@ import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
 public class SqlHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -1056,10 +1056,9 @@ public class SqlHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         // 3. go over each row, build workout and add it to list
-        ActivityWorkout workout = null;
         if (cursor.moveToFirst()) {
             do {
-                workout = new ActivityWorkout();
+                ActivityWorkout workout = new ActivityWorkout();
                 workout.setId(Integer.parseInt(cursor.getString(0)));
                 workout.setTypeOfRep(cursor.getString(1));
                 workout.setNbOfRep(Integer.parseInt(cursor.getString(2)));

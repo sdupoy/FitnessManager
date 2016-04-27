@@ -21,7 +21,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:text="@string/txtCount"
-            android:textSize="28dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center_horizontal" />
 

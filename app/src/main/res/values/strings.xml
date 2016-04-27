@@ -42,5 +42,7 @@
     <string name="strStop">Stop</string>
 
     <string name="title">Title:</string>
+    <string name="add_more_workouts">Add another workout</string>
+    <string name="add_workout_activity">Save</string>
 
 </resources>

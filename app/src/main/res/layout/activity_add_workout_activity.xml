@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/workoutLayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Workout details"
+        android:id="@+id/wkoutActTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Type of reps: "
+        android:id="@+id/wkoutTypeText"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/wkoutActTitle" />
+    <EditText
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/wkoutTypeInput"
+        android:layout_marginLeft="0dp"
+        android:layout_above="@+id/wkoutNbInput"
+        android:layout_toEndOf="@+id/wkoutTypeText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Number of reps: "
+        android:id="@+id/wkoutNbText"
+        android:layout_marginLeft="0dp"
+        android:layout_alignBottom="@+id/wkoutNbInput"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/wkoutNbInput"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/wkoutTypeText"
+        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@+id/wkoutNbText"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_more_workouts"
+        android:id="@+id/addMoreWkout"
+        android:layout_below="@+id/wkoutNbText"
+        android:layout_alignEnd="@+id/wkoutNbInput"
+        android:layout_marginTop="33dp"
+        android:onClick="onClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_workout_activity"
+        android:id="@+id/addWkoutActivity"
+        android:layout_alignBottom="@+id/addMoreWkout"
+        android:layout_toEndOf="@+id/addMoreWkout"
+        android:onClick="onClick"/>
+
+    <ListView
+        android:id="@+id/workoutlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addMoreWkout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp">
+    </ListView>
+
+</RelativeLayout>

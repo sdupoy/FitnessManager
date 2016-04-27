@@ -79,11 +79,8 @@ public class SignInActivity extends Activity {
                             startActivity(i);
                         } else if(EmailValue.equals("li@123.com")&&passwordValue.equals("123")){
                             Toast.makeText(SignInActivity.this,"SignIn successful!", Toast.LENGTH_SHORT).show();
-
-                            Log.d("1", "yes");
                             Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
                             startActivity(i);
-                            Log.d("2", "yes2");
                             //finish();
 
                         }else{

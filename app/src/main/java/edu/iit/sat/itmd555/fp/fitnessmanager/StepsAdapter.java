@@ -1,6 +1,7 @@
 package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,18 +68,19 @@ public class StepsAdapter extends BaseAdapter {
 
         activityType1 = (ImageView) convertView.findViewById(R.id.activityType1);
         if(db.isDistanceAtDate(mListSteps.get(position).getStepsDate())){
-
+            Log.d("Distance? ", "Yes");
             activityType1.setVisibility(View.VISIBLE);
         }
         activityType2 = (ImageView) convertView.findViewById(R.id.activityType2);
         if(db.isWorkoutAtDate(mListSteps.get(position).getStepsDate())){
-
+            Log.d("Workout? ", "Yes");
             activityType2.setVisibility(View.VISIBLE);
         }
         dateActivity = (TextView) convertView.findViewById(R.id.dateActivity);
         dateActivity.setText(mListSteps.get(position).getStepsDate());
 
         if(activityType2.getVisibility() == View.GONE && activityType1.getVisibility()== View.GONE){
+            Log.d("Details? ", "No");
             forward = (ImageView) convertView.findViewById(R.id.forward);
             forward.setVisibility(View.INVISIBLE);
         }
