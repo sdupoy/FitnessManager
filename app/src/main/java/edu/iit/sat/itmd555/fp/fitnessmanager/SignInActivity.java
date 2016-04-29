@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -29,24 +30,24 @@ public class SignInActivity extends Activity {
     private Button btnSignIn;
     private String EmailValue,passwordValue;
     private SharedPreferences sp;
+    private TextView link_signup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
         db = SqlHelper.getInstance(getApplicationContext());
-        //去除标题
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        //获得实例对象
+        //get objects
         sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
         Email = (EditText) findViewById(R.id.etEmail);
         password = (EditText) findViewById(R.id.etPass);
         rmPass = (CheckBox) findViewById(R.id.rmPass);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        link_signup = (TextView) findViewById(R.id.link_signup);
 
 
-        //判断记住密码多选框的状态
+        //check status of remember password's checkbox
 //        if(sp.getBoolean("ISCHECK", false))
 //        {
 //            //设置默认是记录密码状态
@@ -54,7 +55,16 @@ public class SignInActivity extends Activity {
 //            Email.setText(sp.getString("Email", ""));
 //            password.setText(sp.getString("PASSWORD", ""));
 
-        // 登录监听事件  现在默认为用户名为：li@123.com 密码：123
+        //set OnclickListener for move to signup page
+        link_signup.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(i);
+            }
+        });
+
+        // set OnclickListener  useremail：li@123.com password：123
         btnSignIn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {

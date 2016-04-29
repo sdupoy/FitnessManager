@@ -28,7 +28,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static SqlHelper mInstance = null;
 
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -165,7 +165,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + KEY_FK_ID_USER_FOR_STEPS + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID_USER + "));";
 
         // create users table
-        //db.execSQL(CREATE_USERS_TABLE);
+        db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_GOALS_TABLE);
         db.execSQL(CREATE_ACTIVITIES_TABLE);
         db.execSQL(CREATE_DISTANCE_ACTIVITIES_TABLE);
@@ -177,7 +177,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older tables if existed
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTANCE_ACTIVITIES);
