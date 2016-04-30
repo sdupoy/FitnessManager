@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,119 +14,108 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.Splash"
-            android:label="@string/title_activity_splash" >
+            android:name=".Splash"
+            android:label="@string/title_activity_splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.Main"/>
+                <action android:name="android.intent.action.Main" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.SignUpActivity"
+            android:name=".SignUpActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.SignUpActivity"/>
+                <action android:name="android.intent.action.SignUpActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.SignInActivity"
+            android:name=".SignInActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.SignInActivity"/>
+                <action android:name="android.intent.action.SignInActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.MainTabActivity"
+            android:name=".MainTabActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MainTabActivity"/>
+                <action android:name="android.intent.action.MainTabActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.AActivity"
+            android:name=".AActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.AActivity"/>
+                <action android:name="android.intent.action.AActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.BActivity"
+            android:name=".BActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.BActivity"/>
+                <action android:name="android.intent.action.BActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.CActivity"
+            android:name=".DActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.CActivity"/>
+                <action android:name="android.intent.action.DActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.DActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.DActivity"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.AddDistanceActivity"
+            android:name=".AddDistanceActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.AddDistanceActivity"/>
+                <action android:name="android.intent.action.AddDistanceActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="edu.iit.sat.itmd555.fp.fitnessmanager.AddWorkoutActivity"
+            android:name=".AddWorkoutActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.AddWorkoutActivity"/>
+                <action android:name="android.intent.action.AddWorkoutActivity" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
+        <activity
+            android:name=".CActivity"
+            android:label="@string/title_activity_c"
+            android:theme="@style/AppTheme"></activity>
     </application>
+
 </manifest>
