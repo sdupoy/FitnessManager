@@ -36,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activityType1"
-        android:src="@drawable/sport_shoes_icon"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_above="@+id/nbSteps"
-        android:layout_toStartOf="@+id/forward" />
+        android:layout_toStartOf="@+id/forward"
+        android:src="@drawable/sport_shoes_icon" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -47,6 +47,6 @@
         android:id="@+id/activityType2"
         android:layout_above="@+id/nbSteps"
         android:layout_toStartOf="@+id/activityType1"
-        android:src="@drawable/dumbbell_in_hand_small"
-        android:visibility="gone"/>
+        android:visibility="invisible"
+        android:src="@drawable/dumbbell_in_hand_small" />
 </RelativeLayout>

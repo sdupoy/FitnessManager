@@ -5,16 +5,18 @@ package edu.iit.sat.itmd555.fp.fitnessmanager;
  */
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.iit.sat.itmd555.fp.fitnessmanager.model.Step;
+import edu.iit.sat.itmd555.fp.fitnessmanager.notification.NotificationService;
 
 public class AActivity extends Activity implements SensorEventListener {
 
@@ -52,6 +55,7 @@ public class AActivity extends Activity implements SensorEventListener {
     private ListView listContent;
     private StepsAdapter customAdapter;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,16 +70,9 @@ public class AActivity extends Activity implements SensorEventListener {
 
 
         db = SqlHelper.getInstance(getApplicationContext());
-/*
-        for(int i=1; i<10; i++){
-            Step step = new Step();
-            step.setIdUser(1);
-            String date = "2016-04-0" + String.valueOf(i);
-            step.setStepsDate(date);
-            step.setNbOfSteps(i*i);
-            db.addSteps(step);
-        }
-*/
+
+        setUpNotificationTime();
+
         listContent = (ListView) findViewById(R.id.activityList);
         steps = db.getAllStepsByUser(1);
 
@@ -95,9 +92,15 @@ public class AActivity extends Activity implements SensorEventListener {
                 Log.d("position: ", String.valueOf(position));
 
                 // if details availabel !!!
-                //Intent i = new Intent(AActivity.this, ViewDateDetails.class);
-                //i.putExtra("date", steps.get(position).getStepsDate());
-                //startActivity(i);
+                if(db.isDistanceAtDate(steps.get(position).getStepsDate()) || db.isWorkoutAtDate(steps.get(position).getStepsDate())){
+                    //Intent i = new Intent(AActivity.this, DateDetail.class);
+                    //i.putExtra("date",steps.get(position).getStepsDate());
+
+                    //Intent i = new Intent(AActivity.this, ViewDateDetails.class);
+                    //i.putExtra("date", steps.get(position).getStepsDate());
+                    //startActivity(i);
+                }
+
             }
         });
 
@@ -116,6 +119,29 @@ public class AActivity extends Activity implements SensorEventListener {
         count.setText(String.valueOf(currentStep.getNbOfSteps()));
     }
 
+    private void setUpNotificationTime(){
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        int currentSecond = calendar.get(Calendar.SECOND);
+        if (currentHour >= 19 && currentMinute >= 0 && currentSecond>=0)
+        {
+            calendar.add(Calendar.DATE, 1);
+        }
+        // Configure the time for the notification to be sent
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        //Create the intent we want to be launched
+        Intent i = new Intent(AActivity.this, NotificationService.class);
+        PendingIntent myNotification = PendingIntent.getService(this, 0, i, 0);
+
+        //Create an alarm Manager which will launch the activity
+        AlarmManager am = (AlarmManager) AActivity.this.getSystemService(AActivity.this.ALARM_SERVICE);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, myNotification);
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -132,9 +158,9 @@ public class AActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // event object contains values of acceleration, read those
-        double x = event.values[0];
-        double y = event.values[1];
-        double z = event.values[2];
+        double x;
+        double y;
+        double z;
         final double alpha = 0.8; // constant for our filter below
 
         double[] gravity = {0,0,0};
@@ -167,12 +193,7 @@ public class AActivity extends Activity implements SensorEventListener {
             mLastY = y;
             mLastZ = z;
 
-            if (deltaX > deltaY) {
-                // Horizontal shake
-            } else if (deltaY > deltaX) {
-                // Vertical shake
-            } else if ((deltaZ > deltaX) && (deltaZ > deltaY)) {
-                // Z shake
+            if ((deltaZ > deltaX) && (deltaZ > deltaY)) {
                 stepsCount = stepsCount + 1;
                 if (stepsCount > 0) {
                     count.setText(String.valueOf(stepsCount));
@@ -204,6 +225,7 @@ public class AActivity extends Activity implements SensorEventListener {
         }
     }
 
+
     private AlertDialog AskOption(final Step step)
     {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
@@ -213,8 +235,7 @@ public class AActivity extends Activity implements SensorEventListener {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //db.deleteWorkoutActivity();
-                        db.deleteStep(step.getId());
+                        db.deleteDate(step.getStepsDate(), step.getIdUser());
                         dialog.dismiss();
                         steps = db.getAllStepsByUser(1);
                         listContent.destroyDrawingCache();
@@ -225,11 +246,9 @@ public class AActivity extends Activity implements SensorEventListener {
                     }
 
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         dialog.dismiss();
-
                     }
                 })
                 .create();

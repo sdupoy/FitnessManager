@@ -28,7 +28,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static SqlHelper mInstance = null;
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -915,7 +915,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         return activities; // return activities by user
     }
 
-    public List<ActivitySport> getAllByType(String type) {
+    public List<ActivitySport> getAllByType(String type, int idUser) {
         List<ActivitySport> activities = new LinkedList<ActivitySport>();
 
         // 1. build the query
@@ -949,11 +949,11 @@ public class SqlHelper extends SQLiteOpenHelper {
         return activities; // return activities by type
     }
 
-    public List<ActivitySport> getAllByDate(String date) {
+    public List<ActivitySport> getAllByDate(String date, int idUser) {
         List<ActivitySport> activities = new LinkedList<ActivitySport>();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_DATE + " = " + date + ";";
+        String query = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE " + KEY_FK_ID_USER_FOR_ACTIVITY + " = " + idUser + " AND " + KEY_DATE + " = \'" + date + "\' ;";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -968,12 +968,12 @@ public class SqlHelper extends SQLiteOpenHelper {
                 retrievedActivity.setDurationHours(Integer.parseInt(cursor.getString(1)));
                 retrievedActivity.setDurationMinutes(Integer.parseInt(cursor.getString(2)));
                 retrievedActivity.setDurationSeconds(Integer.parseInt(cursor.getString(3)));
-                retrievedActivity.setDate(cursor.getString(3));
-                retrievedActivity.setFeedback(cursor.getString(4));
-                retrievedActivity.setType(cursor.getString(5));
-                retrievedActivity.setJustCreated(Integer.parseInt(cursor.getString(6)));
-                retrievedActivity.setTitle(cursor.getString(7));
-                retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(8)));
+                retrievedActivity.setDate(cursor.getString(4));
+                retrievedActivity.setFeedback(cursor.getString(5));
+                retrievedActivity.setType(cursor.getString(6));
+                retrievedActivity.setJustCreated(Integer.parseInt(cursor.getString(7)));
+                retrievedActivity.setTitle(cursor.getString(8));
+                retrievedActivity.setIdUser(Integer.parseInt(cursor.getString(9)));
                 // Add activity to activities
                 activities.add(retrievedActivity);
             } while (cursor.moveToNext());
@@ -1196,5 +1196,27 @@ public class SqlHelper extends SQLiteOpenHelper {
         }
         return retrievedStep.getNbOfSteps(); // return nb of step for this day and this user
     }
+
+    // Deleting all activities for a specific date
+    public void deleteDate(String date, int idUser) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        List<ActivitySport> activities = new LinkedList<ActivitySport>();
+        activities = getAllByDate(date, idUser);
+        for (ActivitySport item : activities) {
+            List<ActivityDistance> distances = getDistancesByActivity(item.getId());
+            for (ActivityDistance dist : distances) {
+                deleteDistanceActivity(dist);
+            }
+            List<ActivityWorkout> workouts = getWorkoutsByActivity(item.getId());
+            for (ActivityWorkout wk : workouts) {
+                deleteWorkoutActivity(wk.getId());
+            }
+            deleteActivity(item);
+        }
+        deleteStep(getStepsByDateAndUser(idUser, date).getId());
+
+    }
+
 }
 

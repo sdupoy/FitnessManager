@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.iit.sat.itmd555.fp.fitnessmanager">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -127,6 +129,9 @@
             </intent-filter>
         </activity>
 
-
+<service
+    android:name=".notification.NotificationService"
+    android:exported="false"
+/>
     </application>
 </manifest>

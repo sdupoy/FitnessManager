@@ -59,6 +59,7 @@ public class AddWorkoutActivity extends Activity {
 
                 Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
                 startActivity(i);
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(), "Some input is needed !", Toast.LENGTH_LONG).show();
             }

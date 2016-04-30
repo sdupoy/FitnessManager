@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivitySport;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.Step;
 
 public class BActivity extends Activity{
 
@@ -77,6 +78,15 @@ public class BActivity extends Activity{
                     return;
                 } // else if it's ok
                 else {
+                    // If there's no step for the day, create a step summary
+                    if(db.getStepsByDateAndUser(1,dateSelected.getText().toString())==null){
+                        Step step = new Step();
+                        step.setNbOfSteps(0);
+                        step.setStepsDate(dateSelected.getText().toString());
+                        step.setIdUser(1);
+                        db.addSteps(step);
+                    }
+                    // Add the activity
                     ActivitySport activity = new ActivitySport();
                     activity.setDate(dateSelected.getText().toString());
                     activity.setIdUser(1);
@@ -113,12 +123,8 @@ public class BActivity extends Activity{
                         db.addActivity(activity);
                         Intent i = new Intent(getApplicationContext(), AddWorkoutActivity.class);
                         startActivity(i);
-
-
                     }
-
                 }
-
             }
         });
     }

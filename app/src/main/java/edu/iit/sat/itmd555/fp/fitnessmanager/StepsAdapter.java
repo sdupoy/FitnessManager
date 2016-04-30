@@ -79,7 +79,7 @@ public class StepsAdapter extends BaseAdapter {
         dateActivity = (TextView) convertView.findViewById(R.id.dateActivity);
         dateActivity.setText(mListSteps.get(position).getStepsDate());
 
-        if(activityType2.getVisibility() == View.GONE && activityType1.getVisibility()== View.GONE){
+        if(activityType2.getVisibility() == View.INVISIBLE && activityType1.getVisibility()== View.INVISIBLE){
             Log.d("Details? ", "No");
             forward = (ImageView) convertView.findViewById(R.id.forward);
             forward.setVisibility(View.INVISIBLE);
