@@ -1,7 +1,6 @@
 package edu.iit.sat.itmd555.fp.fitnessmanager;
 
 import android.app.Activity;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

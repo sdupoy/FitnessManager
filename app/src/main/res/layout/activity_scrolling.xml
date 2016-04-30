@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Personal Information"
+            android:textSize="25dp"
+            android:textColor="#DDF2561F"
+            android:background="#fef1e3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="Height"
+                android:textColor="@color/text_black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/height_result"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="default_height"
+                android:textColor="@color/text_black" />
+            <Button
+                android:id="@+id/btn_dia_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:layout_alignParentEnd="true"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="Weight"
+                android:textColor="@color/text_black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/weight_result"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="default_weight"
+                android:textColor="@color/text_black"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:id="@+id/btn_dia_weight"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="Age"
+                android:textColor="@color/text_black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/age_result"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="default_age"
+                android:textColor="@color/text_black"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:id="@+id/btn_dia_age"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="Sex"
+                android:textColor="@color/text_black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/sex_result"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="default_sex"
+                android:textColor="@color/text_black"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:id="@+id/btn_dia_sex"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Goals"
+            android:textSize="25dp"
+            android:textColor="#DDF2561F"
+            android:background="#fef1e3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/input_goal_number"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="input numbers"
+                android:layout_centerVertical="true"
+                android:textColorHint="#aaaaaa"
+                android:textColor="@color/text_black"
+                android:background="@null" />
+            <Button
+                android:id="@+id/btn_num_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Input"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <Spinner
+            android:id="@+id/spinner_goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/spinner_frequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/spinner_view3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textColor="@color/text_yellow"/>
+            <TextView
+                android:id="@+id/spinnerTextgoal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/text_yellow"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinner_view3"
+                android:layout_marginStart="50dp" />
+            <TextView
+                android:id="@+id/spinnerTextfrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/text_yellow"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/spinnerTextgoal"
+                android:layout_marginStart="50dp" />
+            <Button
+                android:id="@+id/btn_goal_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:background="#DDF2561F"
+                android:textColor="#ffffff"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="goal_1"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="XXX" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+    </LinearLayout>
+
+</ScrollView>
+
