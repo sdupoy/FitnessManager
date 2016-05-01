@@ -50,7 +50,7 @@ public class NotificationService extends Service {
         Notification mNotify = new Notification.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle("FitApp ! ")
-                .setContentText("Today is a new day !")
+                .setContentText("Today is a new day ! Why don't you establish a new goal?")
                 .setSmallIcon(R.drawable.notif_icon)
                 .setContentIntent(pIntent)
                 .setSound(sound)

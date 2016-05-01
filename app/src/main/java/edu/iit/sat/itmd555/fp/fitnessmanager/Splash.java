@@ -10,7 +10,7 @@ import android.os.Handler;
 
 public class Splash extends AppCompatActivity {
     // splash time
-    private static int SPLASH_TIME = 1000;
+    private static int SPLASH_TIME = 3000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

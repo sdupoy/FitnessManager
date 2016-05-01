@@ -48,7 +48,7 @@ public class AddWorkoutActivity extends Activity {
             wkoutType = (EditText) findViewById(R.id.wkoutTypeInput);
             wkoutNb = (EditText) findViewById(R.id.wkoutNbInput);
             retrAct = db.getActivityJustCreated();
-            if(db.getWorkoutsByActivity(retrAct.getId()).isEmpty()){
+            if(!workouts.isEmpty()){
                 if(wkoutType.getText().length()!=0 && wkoutNb.getText().length()!=0){
                     actWorkout.setTypeOfRep(wkoutType.getText().toString());
                     actWorkout.setNbOfRep(Integer.parseInt(wkoutNb.getText().toString()));
@@ -56,7 +56,7 @@ public class AddWorkoutActivity extends Activity {
                     db.addActivityWorkout(actWorkout);
                 }
                 db.updateActivity(retrAct, retrAct.getDurationHours(), retrAct.getDurationMinutes(), retrAct.getDurationSeconds(), retrAct.getDate(), retrAct.getFeedback(), retrAct.getType(), 0, retrAct.getTitle());
-
+                workouts = db.getWorkoutsByActivity(retrAct.getId());
                 Intent i = new Intent(getApplicationContext(), MainTabActivity.class);
                 startActivity(i);
                 finish();

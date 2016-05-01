@@ -327,7 +327,7 @@ public class CActivity extends AppCompatActivity{
         android.app.AlertDialog myQuittingDialogBox =new android.app.AlertDialog.Builder(this)
 
                 .setTitle("Delete")
-                .setMessage("Do you want to delete all details of this day ?")
+                .setMessage("Do you want to delete this goal ?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {

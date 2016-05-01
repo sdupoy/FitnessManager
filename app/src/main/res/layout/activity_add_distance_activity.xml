@@ -48,8 +48,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="units"
         android:id="@+id/distUnits"
-        android:layout_alignBottom="@+id/distText"
-        android:layout_toEndOf="@+id/distanceInput" />
+        android:layout_alignBaseline="@+id/distanceInput"
+        android:layout_alignBottom="@+id/distanceInput"
+        android:layout_alignStart="@+id/addDistActivity" />
 
     <Button
         android:layout_width="wrap_content"
