@@ -15,6 +15,17 @@
         android:text="Type Your Change : "
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+
+    <EditText
+        android:id="@+id/pswd_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:inputType="textPassword"
+        android:visibility="gone">
+        <requestFocus />
+    </EditText>
+
     <EditText
         android:id="@+id/dialog_input"
         android:layout_width="match_parent"

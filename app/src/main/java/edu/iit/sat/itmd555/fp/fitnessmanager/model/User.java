@@ -12,7 +12,7 @@ public class User {
     private String weight;
     private String email;
     private String gender;
-    private int metrics;
+    private String metrics;
 
     public User() {
     }
@@ -81,11 +81,11 @@ public class User {
         this.gender = gender;
     }
 
-    public int getMetrics() {
+    public String getMetrics() {
         return metrics;
     }
 
-    public void setMetrics(int metrics) {
+    public void setMetrics(String metrics) {
         this.metrics = metrics;
     }
 

@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivityDistance;
 import edu.iit.sat.itmd555.fp.fitnessmanager.model.ActivitySport;
+import edu.iit.sat.itmd555.fp.fitnessmanager.model.User;
 
 /**
  * Created by Simon on 4/26/2016.
@@ -22,6 +24,8 @@ public class AddDistanceActivity extends Activity {
 
     private SqlHelper db;
     private Button addSportDistActivity;
+    private TextView distUnits;
+    private User usr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,11 @@ public class AddDistanceActivity extends Activity {
         setContentView(R.layout.activity_add_distance_activity);
 
         db = SqlHelper.getInstance(getApplicationContext());
+        usr = db.getUser(1);
         addSportDistActivity = (Button) findViewById(R.id.addDistActivity);
 
+        distUnits = (TextView) findViewById(R.id.distUnits);
+        distUnits.setText(usr.getMetrics());
 
         addSportDistActivity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

@@ -59,6 +59,8 @@ public class CActivity extends AppCompatActivity{
 
         db = SqlHelper.getInstance(getApplicationContext());
 
+        usr = db.getUser(1);
+
         heightResult = (TextView) findViewById(R.id.height_result);
         weightResult = (TextView) findViewById(R.id.weight_result);
         ageResult = (TextView) findViewById(R.id.age_result);
@@ -77,7 +79,6 @@ public class CActivity extends AppCompatActivity{
         etNum = (EditText) findViewById(R.id.input_goal_number);
         spinnerGoalNumber = (TextView) findViewById(R.id.spinner_view3);
 
-        usr = db.getUser(1);
 
         heightResult.setText(usr.getHeight());
         weightResult.setText(usr.getWeight());
@@ -188,6 +189,11 @@ public class CActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                if(btn_sex_male.isChecked()){
+                    usr.setGender("Male");
+                } else {
+                    usr.setGender("Female");
+                }
                 usr.setHeight(heightResult.getText().toString());
                 usr.setWeight(weightResult.getText().toString());
                 usr.setAge(Integer.parseInt(ageResult.getText().toString()));

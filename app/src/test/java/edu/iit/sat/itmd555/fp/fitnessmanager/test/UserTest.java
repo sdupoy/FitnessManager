@@ -72,8 +72,10 @@ public class UserTest {
     @Test
     public void testGetMetrics() throws Exception {
         User usrTest = new User();
-        usrTest.setMetrics(0); // 0 is metric system, 1 is imperial (US) system
-        assertEquals(0, usrTest.getMetrics());
+        usrTest.setMetrics("Metrics");
+        assertEquals("Metrics", usrTest.getMetrics());
+        usrTest.setMetrics("Imperial");
+        assertEquals("Imperial", usrTest.getMetrics());
     }
 
     @Test
@@ -97,7 +99,7 @@ public class UserTest {
         usrTest.setHeight("175");
         usrTest.setWeight("75");
         usrTest.setGender("Male");
-        usrTest.setMetrics(0);
+        usrTest.setMetrics("Metrics");
         usrTest.setEmail("email@test.com");
         assertEquals(uts, usrTest.toString());
     }

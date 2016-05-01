@@ -239,7 +239,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             retrievedUser.setWeight(cursor.getString(5));
             retrievedUser.setEmail(cursor.getString(6));
             retrievedUser.setGender(cursor.getString(7));
-            retrievedUser.setMetrics(Integer.parseInt(cursor.getString(8)));
+            retrievedUser.setMetrics(cursor.getString(8));
         }
         Log.d("Retrieved user", retrievedUser.toString());
         return retrievedUser; // return the user
@@ -760,7 +760,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             user.setWeight(cursor.getString(5));
             user.setEmail(cursor.getString(6));
             user.setGender(cursor.getString(7));
-            user.setMetrics(Integer.parseInt(cursor.getString(8)));
+            user.setMetrics(cursor.getString(8));
             Log.d("Retrieved user", user.toString());
             return user; // return the user
         } else{
@@ -813,7 +813,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             retrievedUser.setWeight(cursor.getString(5));
             retrievedUser.setEmail(cursor.getString(6));
             retrievedUser.setGender(cursor.getString(7));
-            retrievedUser.setMetrics(Integer.parseInt(cursor.getString(8)));
+            retrievedUser.setMetrics(cursor.getString(8));
             users.add(retrievedUser);
         }
         Log.d("getAllUsers", users.toString());

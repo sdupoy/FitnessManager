@@ -46,7 +46,7 @@ public class SignUpActivity extends Activity implements OnClickListener {
                 newUser.setEmail(Email.getText().toString());
                 newUser.setPassword(password.getText().toString());
                 newUser.setUsername(username.getText().toString());
-                newUser.setMetrics(0);
+                newUser.setMetrics("Metrics");
                 newUser.setGender("Male");
                 newUser.setHeight("0");
                 newUser.setWeight("0");
