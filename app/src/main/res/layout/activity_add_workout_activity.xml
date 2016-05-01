@@ -3,19 +3,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     android:id="@+id/workoutLayout">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
         android:text="Workout details"
+        android:textSize="25dp"
+        android:textColor="#DDF2561F"
+        android:background="#fef1e3"
         android:id="@+id/wkoutActTitle"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+        android:layout_alignParentTop="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,10 +66,12 @@
         android:layout_height="wrap_content"
         android:text="@string/add_more_workouts"
         android:id="@+id/addMoreWkout"
+        android:layout_marginTop="31dp"
+        android:onClick="onClick"
         android:layout_below="@+id/wkoutNbText"
-        android:layout_alignEnd="@+id/wkoutNbInput"
-        android:layout_marginTop="33dp"
-        android:onClick="onClick"/>
+        android:layout_alignEnd="@+id/wkoutTypeInput"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -76,7 +80,9 @@
         android:id="@+id/addWkoutActivity"
         android:layout_alignBottom="@+id/addMoreWkout"
         android:layout_toEndOf="@+id/addMoreWkout"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button"/>
 
     <ListView
         android:id="@+id/workoutlist"

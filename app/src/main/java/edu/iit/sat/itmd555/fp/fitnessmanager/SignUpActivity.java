@@ -47,6 +47,10 @@ public class SignUpActivity extends Activity implements OnClickListener {
                 newUser.setPassword(password.getText().toString());
                 newUser.setUsername(username.getText().toString());
                 newUser.setMetrics(0);
+                newUser.setGender("Male");
+                newUser.setHeight("0");
+                newUser.setWeight("0");
+                newUser.setAge(0);
                 db.addUser(newUser);
                 Intent i = new Intent(getApplicationContext(),SignInActivity.class);
                 startActivity(i);

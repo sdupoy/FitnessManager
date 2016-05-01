@@ -8,6 +8,7 @@ public class Goal {
     private int idUser;
     private String targetName;
     private int targetNumber;
+    private String targetFrequency;
 
     public Goal() {
     }
@@ -51,6 +52,14 @@ public class Goal {
         this.targetNumber = targetNumber;
     }
 
+    public String getTargetFrequency() {
+        return targetFrequency;
+    }
+
+    public void setTargetFrequency(String targetFrequency) {
+        this.targetFrequency = targetFrequency;
+    }
+
     @Override
     public String toString() {
         return "Goal{" +
@@ -58,6 +67,7 @@ public class Goal {
                 ", idUser=" + idUser +
                 ", targetName='" + targetName + '\'' +
                 ", targetNumber=" + targetNumber +
+                ", targetFrequency='" + targetFrequency + '\'' +
                 '}';
     }
 }

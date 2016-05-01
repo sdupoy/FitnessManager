@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/firstlinearlayout">
 
         <TextView
             android:layout_width="match_parent"
@@ -53,8 +54,10 @@
                 android:layout_height="wrap_content"
                 android:text="edit"
                 android:layout_alignParentEnd="true"
-                android:background="#DDF2561F"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                style="@style/Base.Widget.AppCompat.Button"
+                android:background="@drawable/button"/>
+
 
         </RelativeLayout>
 
@@ -92,8 +95,9 @@
                 android:id="@+id/btn_dia_weight"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:background="#DDF2561F"
-                android:textColor="#ffffff" />
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
+                style="@style/Base.Widget.AppCompat.Button" />
         </RelativeLayout>
 
         <View
@@ -129,8 +133,9 @@
                 android:id="@+id/btn_dia_age"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:background="#DDF2561F"
-                android:textColor="#ffffff" />
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
+                style="@style/Base.Widget.AppCompat.Button" />
         </RelativeLayout>
 
         <View
@@ -149,25 +154,52 @@
                 android:gravity="center"
                 android:text="Sex"
                 android:textColor="@color/text_black"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/sex_result"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="default_sex"
-                android:textColor="@color/text_black"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:textSize="20sp"
+                android:id="@+id/textView3" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/textView3"
+                android:layout_marginStart="79dp">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:id="@+id/radioButtonMale"
+                    android:textColor="#000000" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:id="@+id/radioButtonFemale"
+                    android:textColor="#000000" />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="edit"
-                android:id="@+id/btn_dia_sex"
+                android:text="Save changes"
+                android:id="@+id/btn_save_perso"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:background="#DDF2561F"
-                android:textColor="#ffffff" />
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
+                style="@style/Base.Widget.AppCompat.Button" />
         </RelativeLayout>
 
         <View
@@ -199,31 +231,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:hint="input numbers"
-                android:layout_centerVertical="true"
                 android:textColorHint="#aaaaaa"
                 android:textColor="@color/text_black"
-                android:background="@null" />
-            <Button
-                android:id="@+id/btn_num_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Input"
+                android:background="@null"
+                android:inputType="number"
+                android:width="100dp"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:background="#DDF2561F"
-                android:textColor="#ffffff"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/spinner_goal" />
+
+            <Spinner
+                android:id="@+id/spinner_goal"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/spinner_frequency" />
+
+            <Spinner
+                android:id="@+id/spinner_frequency"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
-
-        <Spinner
-            android:id="@+id/spinner_goal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Spinner
-            android:id="@+id/spinner_frequency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"
@@ -264,42 +294,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:background="#DDF2561F"
+                android:background="@drawable/button"
                 android:textColor="#ffffff"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#7FD6D6D6" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="goal_1"
-                android:textSize="20sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="XXX" />
+                style="@style/Base.Widget.AppCompat.Button" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#7FD6D6D6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#7FD6D6D6" />
+
+        <ListView
+            android:id="@+id/goalslist"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/lastrelativelayout">
+        </ListView>
 
     </LinearLayout>
 
 </ScrollView>
-

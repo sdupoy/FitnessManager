@@ -49,7 +49,7 @@
             android:hint="Password"
             android:textColorHint="#aaaaaa"
             android:textColor="#ffffff"
-            android:password="true"
+            android:inputType="textPassword"
             android:drawableLeft="@drawable/password"/>
         <EditText
             android:id="@+id/etcPass"
@@ -61,6 +61,7 @@
             android:hint="Confirm Password"
             android:textColorHint="#aaaaaa"
             android:textColor="#ffffff"
+            android:inputType="textPassword"
             android:drawableLeft="@drawable/password"/>
         <Button
             android:id="@+id/btnSignUp"

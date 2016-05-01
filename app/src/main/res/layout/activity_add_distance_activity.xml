@@ -3,21 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     android:id="@+id/distanceLayout">
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
         android:text="Distance details"
+        android:textSize="25dp"
+        android:textColor="#DDF2561F"
+        android:background="#fef1e3"
         android:id="@+id/distActDetails"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,5 +59,7 @@
         android:onClick="onClick"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/distanceInput"
-        android:layout_marginBottom="67dp" />
+        android:layout_marginBottom="67dp"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button"/>
 </RelativeLayout>

@@ -40,17 +40,26 @@ public class GoalTest {
     }
 
     @Test
+    public void testGetTargetFrequency() throws Exception {
+        Goal goalTest = new Goal();
+        goalTest.setTargetFrequency("Per day");
+        assertEquals("Per day", goalTest.getTargetFrequency());
+    }
+
+    @Test
     public void testToString() throws Exception {
         String gts = "Goal{" +
                 "id=" + String.valueOf(12)+
                 ", idUser=" + String.valueOf(18) +
                 ", targetName='Steps'" +
                 ", targetNumber=" + String.valueOf(5000) +
+                ", targetFrequency='Per day'" +
                 '}';
         Goal goalTest = new Goal();
         goalTest.setId(12);
         goalTest.setIdUser(18);
         goalTest.setTargetName("Steps");
+        goalTest.setTargetFrequency("Per day");
         goalTest.setTargetNumber(5000);
         assertEquals(gts, goalTest.toString());
     }

@@ -28,7 +28,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static SqlHelper mInstance = null;
 
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     // Database Name
     private static final String DATABASE_NAME = "FitnessManagerDB";
 
@@ -56,6 +56,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static final String KEY_FK_ID_USER_FOR_GOAL = "id_user";
     private static final String KEY_TARGET_NAME = "target_name";
     private static final String KEY_TARGET_NUMBER = "target_number";
+    private static final String KEY_TARGET_FREQUENCY = "target_frequency";
 
     // Activities Table Columns names
     private static final String KEY_ID_ACTIVITY = "id";
@@ -126,6 +127,7 @@ public class SqlHelper extends SQLiteOpenHelper {
                 KEY_ID_GOAL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_TARGET_NAME +" TEXT NOT NULL, " +
                 KEY_TARGET_NUMBER +" INTEGER NOT NULL, " +
+                KEY_TARGET_FREQUENCY +" TEXT NOT NULL, " +
                 KEY_FK_ID_USER_FOR_GOAL + " INTEGER NOT NULL, " +
                 "FOREIGN KEY(" + KEY_FK_ID_USER_FOR_GOAL + ") REFERENCES " + TABLE_USERS + "(" + KEY_ID_USER + "));";
 
@@ -217,11 +219,11 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
     // Get a single user
-    public User getUser(int id) {
+    public User getUser(int idUser) {
         User retrievedUser = new User();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID_USER + " = " + id + ");";
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID_USER + " = " + idUser + ";";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -244,21 +246,21 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
     // Updating single user
-    public int updateUser(User user, String newPassword, String newUsername, int newAge, String newHeight, String newWeight, String newEmail, String newGender, String newMetricsChoice) {
+    public int updateUser(User user) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put(KEY_PSWD, newPassword); // password
-        values.put(KEY_USERNAME, newUsername); // username
-        values.put(KEY_AGE, newAge); // age
-        values.put(KEY_HEIGHT, newHeight); // height
-        values.put(KEY_WEIGHT, newWeight); // weight
-        values.put(KEY_EMAIL, newEmail); // email
-        values.put(KEY_GENDER, newGender); // gender
-        values.put(KEY_METRICS_CHOICE, newMetricsChoice); // metrics
+        values.put(KEY_PSWD, user.getPassword()); // password
+        values.put(KEY_USERNAME, user.getUsername()); // username
+        values.put(KEY_AGE, user.getAge()); // age
+        values.put(KEY_HEIGHT, user.getHeight()); // height
+        values.put(KEY_WEIGHT, user.getWeight()); // weight
+        values.put(KEY_EMAIL, user.getEmail()); // email
+        values.put(KEY_GENDER, user.getGender()); // gender
+        values.put(KEY_METRICS_CHOICE, user.getMetrics()); // metrics
 
         // 3. updating row
         int i = db.update(TABLE_USERS, //table
@@ -302,9 +304,10 @@ public class SqlHelper extends SQLiteOpenHelper {
         values.put(KEY_FK_ID_USER_FOR_GOAL, goal.getIdUser()); // get id user
         values.put(KEY_TARGET_NAME, goal.getTargetName()); // get target name
         values.put(KEY_TARGET_NUMBER, goal.getTargetNumber()); // get target number
+        values.put(KEY_TARGET_FREQUENCY, goal.getTargetFrequency()); // get target freq
 
         // 3. insert
-        db.insert(TABLE_ACTIVITIES, // table
+        db.insert(TABLE_GOALS, // table
                 null, //nullColumnHack
                 values); // key/value -> keys = column names/values
 
@@ -317,7 +320,7 @@ public class SqlHelper extends SQLiteOpenHelper {
         Goal retrievedGoal = new Goal();
 
         // 1. build the query
-        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + KEY_ID_GOAL + " = " + id + ");";
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + KEY_ID_GOAL + " = " + id + ";";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -326,24 +329,26 @@ public class SqlHelper extends SQLiteOpenHelper {
         // 3. assign the result to the variable to return
         if (cursor.moveToFirst()) {
             retrievedGoal.setId(Integer.parseInt(cursor.getString(0)));
-            retrievedGoal.setIdUser(Integer.parseInt(cursor.getString(1)));
-            retrievedGoal.setTargetName(cursor.getString(2));
-            retrievedGoal.setTargetNumber(Integer.parseInt(cursor.getString(3)));
+            retrievedGoal.setTargetName(cursor.getString(1));
+            retrievedGoal.setTargetNumber(Integer.parseInt(cursor.getString(2)));
+            retrievedGoal.setTargetFrequency(cursor.getString(3));
+            retrievedGoal.setIdUser(Integer.parseInt(cursor.getString(4)));
         }
         Log.d("Retrieved goal", retrievedGoal.toString());
         return retrievedGoal; // return the activity
     }
 
     // Updating single goal
-    public int updateGoal(Goal goal, String newTargetName, int newTargetNumber) {
+    public int updateGoal(Goal goal, String newTargetName, int newTargetNumber, String newFrequency) {
 
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-        values.put("targetName", newTargetName); // target name
-        values.put("targetNumber", newTargetNumber); // target number
+        values.put(KEY_TARGET_NAME, newTargetName); // target name
+        values.put(KEY_TARGET_NUMBER, newTargetNumber); // target number
+        values.put(KEY_TARGET_FREQUENCY, newFrequency); // target freq
 
         // 3. updating row
         int i = db.update(TABLE_GOALS, //table
@@ -1032,11 +1037,11 @@ public class SqlHelper extends SQLiteOpenHelper {
     }
 
     // ------------ SPECIAL QUERIES ON GOAL ---------------- //
-    public List<Goal> getAllGoalsByUser(User user) {
+    public List<Goal> getAllGoalsByUser(int idUser) {
         List<Goal> userGoals = new LinkedList<Goal>();
 
         // 1. build the query
-        String query = "SELECT  * FROM " + TABLE_GOALS + " WHERE " + KEY_FK_ID_USER_FOR_GOAL + " = " + user.getId() + ";";
+        String query = "SELECT  * FROM " + TABLE_GOALS + " WHERE " + KEY_FK_ID_USER_FOR_GOAL + " = " + idUser + ";";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1048,9 +1053,10 @@ public class SqlHelper extends SQLiteOpenHelper {
             do {
                 goal = new Goal();
                 goal.setId(Integer.parseInt(cursor.getString(0)));
-                goal.setIdUser(Integer.parseInt(cursor.getString(1)));
-                goal.setTargetName(cursor.getString(2));
-                goal.setTargetNumber(Integer.parseInt(cursor.getString(3)));
+                goal.setTargetName(cursor.getString(1));
+                goal.setTargetNumber(Integer.parseInt(cursor.getString(2)));
+                goal.setTargetFrequency(cursor.getString(3));
+                goal.setIdUser(Integer.parseInt(cursor.getString(4)));
 
                 // Add goal to user's goals
                 userGoals.add(goal);
